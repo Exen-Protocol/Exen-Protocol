@@ -1,8 +1,8 @@
-# 🧠 Deep Protocol Strategy Documentation
+# 🧠 Exen Protocol Strategy Documentation
 
 ## Executive Summary
 
-The Deep Protocol implements a revolutionary dual-engine growth system that simultaneously rewards token holders with SOL distributions while maintaining chart health through algorithmic trading. This creates a sustainable ecosystem where community value and technical performance work in harmony.
+The Exen Protocol implements a revolutionary dual-engine growth system that simultaneously rewards token holders with SOL distributions while maintaining chart health through algorithmic trading. This creates a sustainable ecosystem where community value and technical performance work in harmony.
 
 ## 🎯 Core Strategy: The 50/50 Split
 
@@ -182,14 +182,14 @@ def execute_support_buy():
 ### Smart Contract Architecture
 ```rust
 // Main protocol contract structure
-pub struct DeepProtocol {
+pub struct ExenProtocol {
     pub treasury: Pubkey,
     pub reward_distributor: RewardDistributor,
     pub chart_support: ChartSupport,
     pub fee_collector: FeeCollector,
 }
 
-impl DeepProtocol {
+impl ExenProtocol {
     pub fn process_fees(&mut self, amount: u64) {
         let reward_amount = amount / 2;
         let support_amount = amount / 2;
