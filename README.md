@@ -1,6 +1,49 @@
-![Deep Protocol Overview](https://i.imgur.com/C4acnbl.png)
+# 🚀 Deep Protocol - Dual-Engine Growth System
 
 > **The first token protocol that simultaneously rewards holders AND supports chart health through algorithmic trading**
+
+```mermaid
+graph TB
+    subgraph "Deep Protocol Ecosystem"
+        CF[Creator Fees<br/>💰 100%]
+        FS[Fee Splitter<br/>⚖️ 50/50 Split]
+        
+        subgraph "Reward Engine"
+            RE[Reward Calculator<br/>📊]
+            RD[Reward Distributor<br/>📤]
+        end
+        
+        subgraph "Chart Support Engine"
+            TA[Technical Analyzer<br/>📈]
+            BE[Buy Executor<br/>🛒]
+        end
+        
+        subgraph "Outputs"
+            H[Token Holders<br/>👥]
+            M[Market<br/>🏪]
+        end
+    end
+    
+    %% Main flow
+    CF --> FS
+    FS --> RE
+    FS --> TA
+    RE --> RD
+    TA --> BE
+    RD --> H
+    BE --> M
+    
+    %% Styling
+    classDef primary fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
+    classDef secondary fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
+    classDef accent fill:#F7931A,stroke:#000,stroke-width:2px,color:#fff
+    classDef success fill:#28a745,stroke:#000,stroke-width:2px,color:#fff
+    
+    class CF,FS primary
+    class RE,RD secondary
+    class TA,BE accent
+    class H,M success
+```
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Solana](https://img.shields.io/badge/Built%20on-Solana-9945FF?logo=solana&logoColor=white)](https://solana.com/)
@@ -119,5 +162,12 @@ npm run dev
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## ⚠️ Disclaimer
 
-*Last updated: October 2025*
+This is experimental software. Use at your own risk. Always do your own research before investing in any cryptocurrency or DeFi protocol.
+
+---
+
+**Built with ❤️ for the Solana ecosystem**
+
+*Last updated: January 2025*
