@@ -23,6 +23,28 @@ Total Creator Fees (100%)
 - **Currency**: SOL (Solana native token)
 - **Eligibility**: All token holders (no minimum threshold)
 - **Calculation**: Proportional to token holdings
+- 
+**How the Rewards Are Split:**
+
+Think of it like a pie. Each reward cycle, that 50% of creator fees becomes a whole pie that gets divided among all holders. The bigger your slice of the total token supply, the bigger your slice of that SOL pie.
+
+- Hold **1% of the supply**? You get **1% of the rewards pie** 🥧
+- Hold **5% of the supply**? You get **5% of the rewards pie** 🥧🥧🥧🥧🥧
+- Hold **0.1% of the supply**? You get **0.1% of the rewards pie** 🥧
+
+It's perfectly proportional. Your share of the rewards matches your share of the token supply - simple, fair, and transparent.
+
+**Real Example:**
+
+Let's say there are 4 holders and the rewards pot has **5 SOL** to distribute. Here's how it gets split:
+
+| Holder | Token Supply % | SOL Reward |
+|--------|---------------|------------|
+| 1st Holder | 50% | 2.50 SOL (50% of 5 SOL) |
+| 2nd Holder | 25% | 1.25 SOL (25% of 5 SOL) |
+| 3rd Holder | 15% | 0.75 SOL (15% of 5 SOL) |
+| 4th Holder | 10% | 0.50 SOL (10% of 5 SOL) |
+| **TOTAL** | **100%** | **5.00 SOL** ✓ |
 
 ### Smart Contract Logic
 ```rust
