@@ -1,5 +1,4 @@
-[![Deep Protocol Overview](https://imgur.com/a/C4acnbl)](https://imgur.com/a/C4acnbl)
-
+![Deep Protocol Overview](https://i.imgur.com/C4acnbl.png)
 
 > **The first token protocol that simultaneously rewards holders AND supports chart health through algorithmic trading**
 
