@@ -1,4 +1,5 @@
-# 🚀 Deep Protocol - Dual-Engine Growth System
+# 🚀 Deep Protocol - Dual-Engine Growth System![Deep Protocol Overview](https://imgur.com/a/C4acnbl)
+
 
 > **The first token protocol that simultaneously rewards holders AND supports chart health through algorithmic trading**
 
