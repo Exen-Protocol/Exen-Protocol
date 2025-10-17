@@ -39,7 +39,7 @@ Creator Fees (100%)
 - Basic understanding of DeFi
 
 ### Getting Started
-1. **Acquire Tokens**: Buy $DEEP tokens on any Solana DEX
+1. **Acquire Tokens**: Buy $EXEN tokens on any Solana DEX
 2. **Hold & Earn**: Receive SOL rewards automatically every 15 minutes
 3. **Monitor Performance**: Track both rewards and chart health in real-time
 
