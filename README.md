@@ -162,12 +162,3 @@ npm run dev
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## ⚠️ Disclaimer
-
-This is experimental software. Use at your own risk. Always do your own research before investing in any cryptocurrency or DeFi protocol.
-
----
-
-**Built with ❤️ for the Solana ecosystem**
-
-*Last updated: January 2025*
