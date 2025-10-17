@@ -28,9 +28,9 @@ Total Creator Fees (100%)
 
 Think of it like a pie. Each reward cycle, that 50% of creator fees becomes a whole pie that gets divided among all holders. The bigger your slice of the total token supply, the bigger your slice of that SOL pie.
 
-- Hold **1% of the supply**? You get **1% of the rewards pie** 🥧
-- Hold **5% of the supply**? You get **5% of the rewards pie** 🥧🥧🥧🥧🥧
-- Hold **0.1% of the supply**? You get **0.1% of the rewards pie** 🥧
+- Hold **50% of the supply**? You get **50% of the rewards pie** 🥧🥧🥧🥧🥧
+- Hold **25% of the supply**? You get **25% of the rewards pie** 🥧🥧🥧
+- Hold **10% of the supply**? You get **10% of the rewards pie** 🥧
 
 It's perfectly proportional. Your share of the rewards matches your share of the token supply - simple, fair, and transparent.
 
