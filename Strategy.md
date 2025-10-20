@@ -1,4 +1,16 @@
-# 🧠 Exen Protocol Strategy Documentation v2
+# Exen Protocol Strategy Documentation
+
+## 🌐 The Vision: Decentralized Internet Banking Infrastructure
+
+The internet economy requires true internet banking infrastructure. Today, it remains impossible for most people to achieve fully onchain financial independence. Traditional banks gatekeep access to capital through legacy credit systems that fail to recognize on-chain reputation and creditworthiness. The infrastructure for decentralized underwriting is almost entirely absent.
+
+**Exen's mission is to build distributed internet banking infrastructure for the blockchain era.** We're constructing an internet-native lending system backed by on-chain reputation and transparent collateral mechanics—eliminating the need for centralized institutions to determine who deserves access to capital.
+
+Money didn't originate from barter; it originated as credit. Money is fundamentally a social ledger. To achieve true independence from fiat banking, we need a decentralized social ledger—one where trust is earned on-chain through participation and collateral backing, not granted by institutions.
+
+Most leading research confirms that decentralized finance still lacks reliable reputation-based lending mechanisms. **Exen solves this** by creating a transparent, algorithmic lending pool where collateral is verifiable on-chain, interest rates are market-driven, and all protocol revenue is redistributed to the community that underwrites it.
+
+We are building the financial infrastructure that enables the next billion people to access capital without permission from centralized banks.
 
 ## Executive Summary
 
@@ -158,52 +170,64 @@ def execute_support_buyback():
 
 ## 🏦 Lending Pool System (50% of Fees)
 
-### Lending Pool Infrastructure
-
-#### Pool Activation & Mechanics
+### Pool Activation & Mechanics
 - **Minimum Liquidity Threshold**: $50,000 USD equivalent
 - **Pool Status**: Inactive until threshold is reached, then auto-activates
 - **Funding Source**: 50% of all creator fees continuously added
 - **Currency**: Loans issued in USD stablecoin
+- **Target APY**: 12-18% (variable based on utilization)
+- **Maximum LTV**: 60%
 
-#### How the Lending Pool Works
+### Revenue Generation Model
 
-The lending pool operates on a collateral-based lending model where Exen token holders can leverage their holdings for liquidity.
+The lending pool generates revenue through interest payments on loans. Users borrowing USD stablecoin pay interest, which becomes the protocol's profit.
 
-**Step 1: Deposit Collateral**
-Users deposit Exen tokens into the lending contract as collateral. These tokens are locked and held in escrow.
+**Interest Rate Formula:**
+```
+Borrowing Rate = Base Rate + (Utilization Rate × Risk Premium)
+Base Rate: 8%
+Risk Premium: up to 10%
+Result: Variable 8-18% interest on all outstanding loans
+```
 
-**Step 2: Borrow USD**
-Based on their collateral amount, users can borrow USD stablecoin up to their borrow limit. The protocol calculates maximum borrow amounts based on collateral value and risk parameters.
+**Example:**
+- Pool has $100,000 available
+- $60,000 is borrowed (60% utilization)
+- Average borrowing rate: 14% APY
+- **Annual interest revenue: $60,000 × 14% = $8,400 USD**
 
-**Step 3: Price Movement Scenarios**
+### Revenue Distribution Engine
 
-**Scenario A: Exen Price Decreases**
-- User borrowed: 1,000 USD against 10,000 Exen tokens (worth $1,000)
-- Current price: Exen now worth $0.08 (down from $0.10)
-- Current collateral value: 10,000 × $0.08 = $800
-- **User obligation**: Still owes 1,000 USD
-- **Resolution**: User repays 1,000 USD and receives their 10,000 Exen tokens back
-- **Surplus handling**: The collateral ($800) is insufficient. The protocol covers the $200 loss from lending reserves, and that $200 is directed back into the chart buyback system for price recovery
+**ALL lending pool revenue is redistributed through two channels:**
 
-**Scenario B: Exen Price Increases**
-- User borrowed: 1,000 USD against 10,000 Exen tokens (worth $1,000)
-- Current price: Exen now worth $0.12 (up from $0.10)
-- Current collateral value: 10,000 × $0.12 = $1,200
-- **User obligation**: Still owes 1,000 USD
-- **Resolution**: User repays 1,000 USD and receives their 10,000 Exen tokens back
-- **Surplus handling**: The extra $200 ($1,200 - $1,000) stays with the protocol and is added back to the lending pool, making it more robust
+```
+Lending Interest Revenue (100%)
+├── 50% → Holder Rewards (Additional SOL Distribution)
+│   └── Distributed to all token holders
+│   └── Same 15-minute distribution cycle as creator fees
+│   └── Proportional to token holdings
+│
+└── 50% → Chart Buyback Support (Enhanced Buying Power)
+    └── Funds algorithmic buyback engine
+    └── Executed via RSI/MACD confirmation signals
+    └── Strengthens chart health and price floor
+```
+
+**Real Example:**
+- Monthly lending interest revenue: $700 USD
+- $350 → New SOL holder rewards (distributed 15-minutely)
+- $350 → Chart buyback support (deployed algorithmically)
 
 ### Per-User Borrow Limits
 
-Each user has an individual borrow limit calculated based on their collateral deposit and protocol parameters:
+Each user has an individual borrow limit calculated based on their collateral deposit and the 60% LTV ratio:
 
 ```rust
 pub fn calculate_borrow_limit(collateral_amount: u64) -> u64 {
     let collateral_value_usd = get_current_token_price() * collateral_amount;
-    let collateral_ratio = 0.75; // Users can borrow up to 75% of collateral value
+    let ltv_ratio = 0.60; // 60% LTV maximum
     
-    let max_borrow = (collateral_value_usd * collateral_ratio) as u64;
+    let max_borrow = (collateral_value_usd * ltv_ratio) as u64;
     
     // Cap per-user limit to prevent concentration risk
     let per_user_cap = 500_000; // $500k USD max per user
@@ -212,18 +236,18 @@ pub fn calculate_borrow_limit(collateral_amount: u64) -> u64 {
 }
 ```
 
-**Example Borrow Limits:**
+**Example Borrow Limits with 60% LTV:**
 
-| Collateral Deposited | Token Price | Collateral Value | Max Borrow (75%) | Actual Limit |
+| Collateral Deposited | Token Price | Collateral Value | Max Borrow (60%) | Actual Limit |
 |-------------------|------------|-----------------|-----------------|------------|
-| 100,000 Exen | $0.10 | $10,000 | $7,500 | $7,500 |
-| 1,000,000 Exen | $0.10 | $100,000 | $75,000 | $75,000 |
-| 5,000,000 Exen | $0.10 | $500,000 | $375,000 | $375,000 |
-| 10,000,000 Exen | $0.10 | $1,000,000 | $750,000 | $500,000 (capped) |
+| 100,000 Exen | $0.10 | $10,000 | $6,000 | $6,000 |
+| 1,000,000 Exen | $0.10 | $100,000 | $60,000 | $60,000 |
+| 5,000,000 Exen | $0.10 | $500,000 | $300,000 | $300,000 |
+| 10,000,000 Exen | $0.10 | $1,000,000 | $600,000 | $500,000 (capped) |
 
 ### Liquidation Mechanics
 
-The protocol employs a dynamic liquidation system to protect the lending pool:
+The protocol employs a dynamic liquidation system to protect the lending pool and preserve revenue generation:
 
 ```rust
 pub fn check_liquidation(user_address: Pubkey) -> bool {
@@ -232,6 +256,7 @@ pub fn check_liquidation(user_address: Pubkey) -> bool {
     let health_factor = collateral_value / borrowed_amount;
     
     // Liquidation triggers when health factor falls below 1.0
+    // At 60% LTV, there's a 40% safety cushion before liquidation
     if health_factor < 1.0 {
         execute_liquidation(user_address);
         return true;
@@ -249,68 +274,169 @@ pub fn execute_liquidation(user_address: Pubkey) {
     // Repay loan
     repay_loan(borrowed_amount);
     
-    // Return surplus to user or redirect excess to pool
+    // ALL surplus is redistributed back to the protocol
     if sale_proceeds > borrowed_amount {
         let surplus = sale_proceeds - borrowed_amount;
-        add_to_lending_pool(surplus);
+        
+        // Surplus is treated as revenue and split:
+        // 50% → Holder Rewards
+        // 50% → Chart Buyback Support
+        redistribute_liquidation_surplus(surplus);
     }
 }
+```
+
+**Liquidation Example:**
+- User borrowed: $6,000 USD against 100,000 Exen tokens (worth $10,000)
+- Token price drops to $0.09 (collateral now worth $9,000)
+- Liquidation triggers when price reaches $0.0833 (collateral worth $8,333)
+- Liquidated collateral sells for $8,333
+- Loan repaid: $6,000
+- **Surplus: $2,333** → 50% to holder rewards, 50% to chart buyback
+
+### Interest Revenue Flow
+
+#### Daily Revenue Cycle
+
+```
+Lending Interest Accrued Daily
+    │
+    ├─→ 50% Holder Rewards Distribution
+    │   ├─→ Converted to SOL
+    │   ├─→ Distributed to all token holders
+    │   ├─→ 15-minute cycles
+    │   └─→ Proportional to holdings
+    │
+    └─→ 50% Chart Buyback Support
+        ├─→ Accumulated for optimal entry points
+        ├─→ RSI/MACD signal confirmation
+        ├─→ Executed when oversold conditions detected
+        └─→ Strengthens price floor and chart health
 ```
 
 ### Smart Contract Logic
 ```rust
 pub struct LendingPool {
-    pub pool_balance: u64,  // USD stablecoin
-    pub total_borrowed: u64,
-    pub minimum_threshold: u64, // $50,000
+    pub pool_balance: u64,           // USD stablecoin available
+    pub total_borrowed: u64,         // Total outstanding loans
+    pub total_interest_accrued: u64, // Revenue to distribute
+    pub minimum_threshold: u64,      // $50,000
     pub is_active: bool,
+    pub interest_rate_base: u8,      // 8%
+    pub max_ltv: u8,                 // 60%
 }
 
 impl LendingPool {
+    // Fee deposits flow into pool
     pub fn deposit_fees(&mut self, amount: u64) {
         self.pool_balance += amount;
         
         if self.pool_balance >= self.minimum_threshold && !self.is_active {
             self.is_active = true;
+            // Emit activation event
         }
     }
     
-    pub fn user_deposit_collateral(&mut self, user: Pubkey, exen_amount: u64) {
+    // Daily interest accrual and redistribution
+    pub fn daily_revenue_distribution(&mut self) {
         if !self.is_active {
-            panic!("Lending pool not yet active");
+            return;
         }
+        
+        // Calculate accrued interest based on outstanding loans
+        let daily_interest = calculate_daily_interest(self.total_borrowed);
+        self.total_interest_accrued += daily_interest;
+        
+        // Check if sufficient revenue to distribute
+        if self.total_interest_accrued >= DISTRIBUTION_THRESHOLD {
+            // Split revenue 50/50
+            let holder_rewards_portion = self.total_interest_accrued / 2;
+            let buyback_portion = self.total_interest_accrued / 2;
+            
+            // Queue holder rewards (converted to SOL)
+            queue_holder_rewards(holder_rewards_portion);
+            
+            // Add to buyback support funds
+            add_to_buyback_support(buyback_portion);
+            
+            // Reset accrual tracker
+            self.total_interest_accrued = 0;
+        }
+    }
+    
+    // User deposits collateral
+    pub fn user_deposit_collateral(&mut self, user: Pubkey, exen_amount: u64) {
+        require!(self.is_active, "Lending pool not yet active");
         
         lock_exen_collateral(user, exen_amount);
         record_user_collateral(user, exen_amount);
     }
     
+    // User borrows against collateral
     pub fn user_borrow_usd(&mut self, user: Pubkey, borrow_amount: u64) {
-        let max_borrow = calculate_borrow_limit(user);
+        require!(self.is_active, "Lending pool not active");
+        
+        let max_borrow = calculate_borrow_limit_60_ltv(user);
         require!(borrow_amount <= max_borrow, "Exceeds borrow limit");
-        require!(borrow_amount <= self.pool_balance, "Insufficient pool liquidity");
+        require!(borrow_amount <= self.pool_balance, "Insufficient liquidity");
         
         transfer_usd_to_user(user, borrow_amount);
         record_user_debt(user, borrow_amount);
+        
         self.pool_balance -= borrow_amount;
         self.total_borrowed += borrow_amount;
     }
     
+    // User repays loan with accrued interest
     pub fn user_repay_loan(&mut self, user: Pubkey, repay_amount: u64) {
         let user_debt = get_user_debt(user);
         require!(repay_amount <= user_debt, "Repayment exceeds debt");
         
         receive_usd_from_user(user, repay_amount);
+        
+        // Calculate interest component
+        let principal_repaid = calculate_principal(repay_amount);
+        let interest_paid = repay_amount - principal_repaid;
+        
+        // Interest goes directly to accrual for distribution
+        self.total_interest_accrued += interest_paid;
+        
         reduce_user_debt(user, repay_amount);
         
         if user_debt - repay_amount == 0 {
-            // User fully repaid - return collateral
+            // Full repayment - return collateral
             let collateral_amount = get_user_collateral(user);
             release_exen_collateral(user, collateral_amount);
             clear_user_collateral(user);
         }
         
         self.pool_balance += repay_amount;
-        self.total_borrowed -= repay_amount;
+        self.total_borrowed -= principal_repaid;
+    }
+    
+    // Liquidation with revenue redistribution
+    pub fn execute_liquidation(&mut self, user: Pubkey) {
+        let collateral = get_collateral(user);
+        let borrowed_amount = get_borrowed_amount(user);
+        
+        let sale_proceeds = sell_collateral(collateral);
+        repay_loan(borrowed_amount);
+        
+        if sale_proceeds > borrowed_amount {
+            let surplus = sale_proceeds - borrowed_amount;
+            
+            // Treat liquidation surplus as revenue
+            let holder_portion = surplus / 2;
+            let buyback_portion = surplus / 2;
+            
+            queue_holder_rewards(holder_portion);
+            add_to_buyback_support(buyback_portion);
+            
+            self.total_interest_accrued = 0;
+        }
+        
+        self.pool_balance += sale_proceeds;
+        self.total_borrowed -= borrowed_amount;
     }
 }
 ```
@@ -329,7 +455,7 @@ impl LendingPool {
 
 **Phase 3: Growth**
 - Continuous 50% fee allocation grows the pool
-- Surplus from price recoveries reinvests
+- Interest revenue generates additional rewards
 - Pool becomes self-reinforcing
 
 ## 🔄 Capital Flow Diagram
@@ -348,7 +474,10 @@ Creator Fees (100%)
     └─→ 50% Lending Pool
         ├─→ Accumulates until $50k threshold
         ├─→ Enables USD lending against Exen collateral
-        ├─→ Liquidation surplus redirects to Chart Buyback
+        ├─→ Interest Revenue Splits 50/50:
+        │   ├─→ 50% to Holder Rewards
+        │   └─→ 50% to Chart Buyback Support
+        ├─→ Liquidation surplus redirects 50/50 to Holders & Buyback
         └─→ Price appreciation surplus reinforces pool
 ```
 
@@ -358,11 +487,13 @@ Creator Fees (100%)
 - **Total SOL Distributed**: Real-time tracking
 - **Average Reward per Holder**: Daily/weekly/monthly
 - **Distribution Efficiency**: % of fees successfully distributed
+- **Lending Revenue Contribution**: SOL generated from interest
 
 ### Chart Support Effectiveness
 - **Buy Signal Accuracy**: % of profitable support buys
 - **Price Impact**: Effect on token price post-buy
 - **Support Level Success**: % of times support holds
+- **Buyback Power**: USD deployed from lending interest
 
 ### Lending Pool Health
 - **Pool Balance**: Current USD available
@@ -370,12 +501,15 @@ Creator Fees (100%)
 - **Total Borrowed**: Outstanding loans
 - **Health Ratio**: Pool balance vs total borrowed
 - **Utilization Rate**: Borrowed / Available capacity
+- **Interest Revenue Generated**: Monthly/annual USD earned
+- **LTV Safety Ratio**: 60% maximum ensures stability
 
 ### Overall Protocol Health
 - **Fee Generation**: Creator fees collected
 - **Community Growth**: New holders attracted
 - **Token Stability**: Price volatility reduction
 - **Lending Adoption**: % of holders using lending
+- **Revenue Reinvestment**: % of lending interest deployed to holders and chart
 
 ## 🔧 Technical Implementation
 
@@ -438,7 +572,7 @@ impl ExenProtocol {
 - Organic price appreciation
 - Growing lending adoption
 - Enhanced protocol stability
-- Sustainable fee generation
+- Sustainable fee generation from lending interest
 
 ### Long Term (6+ months)
 - Self-sustaining ecosystem
@@ -471,8 +605,9 @@ impl ExenProtocol {
 - Community governance
 - Insurance protocols
 - Dynamic liquidation thresholds
-- Conservative LTV ratios (75%)
-- Per-user borrow caps
+- Conservative LTV ratios (60%)
+- Per-user borrow caps ($500k)
+- Interest revenue redistributed to maintain ecosystem health
 
 ---
 
