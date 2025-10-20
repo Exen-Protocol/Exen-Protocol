@@ -488,7 +488,6 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 Join the Exen community and stay updated:
 
-- **Discord**: [Exen Protocol Community](https://discord.gg/exen-protocol)
 - **Twitter/X**: [@ExenProtocol](https://twitter.com/exen_protocol)
 - **Website**: [exenprotocol.com](https://exenprotocol.com)
 - **Docs**: [docs.exenprotocol.com](https://docs.exenprotocol.com)
