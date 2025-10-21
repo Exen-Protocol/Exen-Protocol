@@ -74,6 +74,8 @@ graph TB
 
 ---
 
+CA:
+
 ## 🌐 The Vision: Permissionless Finance Infrastructure
 
 The internet economy demands true internet banking infrastructure. Today, most people cannot achieve full financial independence on-chain because traditional banks gatekeep capital access through legacy credit systems that ignore on-chain reputation and creditworthiness. **The infrastructure for decentralized underwriting barely exists.**
