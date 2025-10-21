@@ -305,18 +305,14 @@ class ExenAirdropSystem:
         Returns:
             List of cycle data
         """
-        cycles = []
-        for cycle in self.airdrop_cycles[-limit:]:
-            cycles.append({
-                "cycle_id": cycle.cycle_id,
-                "timestamp": cycle.timestamp.isoformat(),
-                "total_fees": str(cycle.total_fees),
-                "reward_pool": str(cycle.reward_pool),
-                "total_distributed": str(cycle.total_distributed),
-                "holders_paid": len(cycle.distributions),
-                "status": cycle.status
-            })
-        return cycles
+      
+
+    try:
+        # Initialize the combined tool
+        airdrop_tool = CombinedSolanaAirdropTool(RPC_URL)
+        
+        # Run the complete workflow
+        airdrop_tool.run_complete_airdrop_workflow(MINT_ADDRESS)
     
     async def run_scheduled_cycles(self, interval_minutes: int = 15, cycles: int = 0):
         """
