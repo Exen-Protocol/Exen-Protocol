@@ -1,95 +1,7 @@
-
-# 📊 Deep Protocol - System Diagrams
 # Exen Protocol - Decentralized Internet Banking Infrastructure
 
-This document contains comprehensive system architecture and data flow diagrams for the Deep Protocol, rendered using Mermaid diagrams for optimal GitHub compatibility.
 > **Building the future of finance: A protocol that rewards holders, supports chart health through algorithmic buybacks, AND enables permissionless on-chain lending—all simultaneously**
 
-## 🏗️ System Architecture Overview
-
-```mermaid
-graph TB
-    subgraph "Deep Protocol Ecosystem"
-        CF[Creator Fees<br/>💰 100%]
-        FS[Fee Splitter<br/>⚖️ 50/50 Split]
-        
-        subgraph "Reward Engine"
-            RE[Reward Calculator<br/>📊]
-            RD[Reward Distributor<br/>📤]
-<br/>🛒]
-        end
-
-        subgraph "Chart Support Engine"
-            TA[Technical Analyzer<br/>📈]
-            BE[Buy Executor<br/>🛒]
-        subgraph "Lending Engine"
-            LP[Lending Pool<br/>🏦]
-            LM[Loan Manager<br/>🔒]
-        end
-
-        subgraph "Data Sources"
-            PF[Price Feeds<br/>💹]
-            RSI[RSI Data<br/>📊]
-            MACD[MACD Data<br/>📈]
-        subgraph "Revenue Cycle"
-            IR[Interest Revenue<br/>💵]
-            RC[Revenue Cycle<br/>🔄]
-        end
-
-        subgraph "Outputs"
-            H[Token Holders<br/>👥]
-            M[Market<br/>🏪]
-            A[Analytics<br/>📊]
-            B[Borrowers<br/>💰]
-        end
-    end
-
-    %% Main flow
-    CF --> FS
-    FS --> RE
-    FS --> TA
-    
-    %% Data flow
-    PF --> TA
-    RSI --> TA
-    MACD --> TA
-    
-    %% Processing
-    FS --> LP
-    LP --> IR
-    IR --> RC
-    RE --> RD
-    RC --> RD
-    RC --> BE
-    TA --> BE
-    
-    %% Outputs
-    LP --> LM
-    RD --> H
-    BE --> M
-    RD --> A
-    BE --> A
-    LM --> B
-
-    %% Styling
-    classDef primary fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
-    classDef secondary fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
-    classDef accent fill:#F7931A,stroke:#000,stroke-width:2px,color:#fff
-    classDef success fill:#28a745,stroke:#000,stroke-width:2px,color:#fff
-    classDef lending fill:#FF6B9D,stroke:#000,stroke-width:2px,color:#fff
-    classDef revenue fill:#14F195,stroke:#000,stroke-width:2px,color:#000
-
-    class CF,FS primary
-    class RE,RD,PF,RSI,MACD secondary
-    class RE,RD secondary
-    class TA,BE accent
-    class H,M,A success
-    class LP,LM lending
-    class IR,RC revenue
-    class H,M,B success
-```
-
-## 🔄 Data Flow Architecture
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Solana](https://img.shields.io/badge/Built%20on-Solana-9945FF?logo=solana&logoColor=white)](https://solana.com/)
 [![Rust](https://img.shields.io/badge/Smart%20Contracts-Rust-CE422B?logo=rust&logoColor=white)](https://www.rust-lang.org/)
@@ -145,166 +57,513 @@ While other protocols either reward holders OR support their chart, Exen does **
 
 ---
 
-## 🏗️ Architecture Overview
+## 🏗️ System Architecture Overview
+
+### High-Level Data Flow Map
 
 ```mermaid
-flowchart TD
-    subgraph "Input Layer"
-        A1[Creator Fees<br/>💰]
-        A2[Price Data<br/>💹]
-        A3[RSI Indicators<br/>📊]
-        A4[MACD Signals<br/>📈]
-        A5[Holder Data<br/>👥]
-    end
-graph LR
-    CF["Creator Fees<br/>💰 100%"]
-    
-    subgraph "Processing Layer"
-        B1[Fee Splitter<br/>⚖️]
-        B2[Reward Calculator<br/>🧮]
-        B3[Technical Analyzer<br/>🔍]
-        B4[Buy Executor<br/>⚡]
-    subgraph Split["25/25/50 Split"]
-        S1["25% Holder<br/>Rewards"]
-        S2["25% Chart<br/>Support"]
-        S3["50% Lending<br/>Pool"]
+graph TB
+    subgraph "Data Ingestion Layer"
+        I1[Creator Fees<br/>💰]
+        I2[Price Oracles<br/>Pyth Network<br/>🔮]
+        I3[Market Data<br/>Binance/Jupiter<br/>📊]
+        I4[Blockchain Events<br/>Solana RPC<br/>⛓️]
     end
     
-    subgraph "Output Layer"
-        C1[SOL Distribution<br/>💸]
-        C2[Holder Rewards<br/>🎁]
-        C3[Support Buys<br/>🛒]
-        C4[Price Impact<br/>📈]
-        C5[Analytics Data<br/>📊]
-    subgraph Rewards["Reward Engine"]
-        R1["SOL Calc<br/>📊"]
-        R2["15-min<br/>Airdrops<br/>📤"]
+    subgraph "Processing Pipelines"
+        P1[Fee Split Pipeline<br/>25/25/50]
+        P2[Reward Calc Pipeline<br/>📊]
+        P3[Technical Analysis Pipeline<br/>📈]
+        P4[Lending Pool Pipeline<br/>🏦]
     end
     
-    %% Input to Processing
-    A1 --> B1
-    A2 --> B2
-    A3 --> B3
-    A4 --> B3
-    A5 --> B4
-    subgraph Chart["Chart Support"]
-        C1["RSI/MACD<br/>Analysis<br/>📈"]
-        C2["Algorithmic<br/>Buys<br/>🛒"]
+    subgraph "Data Storage"
+        D1[Holder Registry<br/>On-Chain]
+        D2[Analytics DB<br/>PostgreSQL]
+        D3[Collateral Vault<br/>Smart Contract]
+        D4[Transaction Log<br/>Arweave]
     end
     
-    %% Processing to Output
-    B1 --> C1
-    B1 --> C2
-    B2 --> C2
-    B3 --> C3
-    B3 --> C4
-    B4 --> C3
-    B4 --> C5
-    subgraph Lending["Lending Engine"]
-        L1["Pool Accumulation<br/>💳"]
-        L2["USD Lending<br/>🏦"]
-        L3["Interest Revenue<br/>12-18% APY<br/>💵"]
-        L4["Liquidation<br/>Management<br/>🔒"]
+    subgraph "Distribution Layer"
+        O1[SOL Airdrops<br/>Every 15min]
+        O2[Buyback Execution<br/>DEX Integration]
+        O3[Loan Disbursement<br/>USDC/USDT]
+        O4[Analytics Dashboard<br/>Real-time]
     end
     
-    %% Cross connections
-    B1 -.-> B2
-    B3 -.-> B4
-    subgraph Redistribution["Interest Redistribution 50/50"]
-        LR1["50% → Holder<br/>Rewards"]
-        LR2["50% → Chart<br/>Buyback"]
-    end
+    I1 --> P1
+    I2 --> P3
+    I2 --> P4
+    I3 --> P3
+    I4 --> P2
+    I4 --> P4
     
-    %% Styling
-    classDef input fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
-    classDef output fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
-    subgraph Outputs["Ecosystem Outputs"]
-        O1["Token Holders<br/>👥"]
-        O2["Market<br/>🏪"]
-        O3["Borrowers<br/>💰"]
-    end
+    P1 --> P2
+    P1 --> P3
+    P1 --> P4
     
-    class A1,A2,A3,A4,A5 input
-    class B1,B2,B3,B4 process
-    class C1,C2,C3,C4,C5 output
-    CF --> Split
-    S1 --> Rewards
-    S2 --> Chart
-    S3 --> Lending
+    P2 --> D1
+    P2 --> D2
+    P3 --> D2
+    P4 --> D3
+    P4 --> D2
     
-    R1 --> R2
-    C1 --> C2
-    L1 --> L2
-    L2 --> L3
-    L3 --> Redistribution
+    D1 --> O1
+    D2 --> O2
+    D2 --> O4
+    D3 --> O3
     
-    LR1 --> R1
-    LR2 --> C1
-    
-    R2 --> O1
-    C2 --> O2
-    L2 --> O3
-    L4 --> O3
-    
-    classDef input fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
-    classDef engine fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
-    classDef lending fill:#FF6B9D,stroke:#000,stroke-width:2px,color:#fff
-    classDef revenue fill:#14F195,stroke:#000,stroke-width:2px,color:#000
+    classDef ingestion fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
+    classDef processing fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
+    classDef storage fill:#F7931A,stroke:#000,stroke-width:2px,color:#fff
     classDef output fill:#28a745,stroke:#000,stroke-width:2px,color:#fff
     
-    class CF input
-    class S1,S2,S3 engine
-    class R1,R2,C1,C2 engine
-    class L1,L2,L3,L4 lending
-    class LR1,LR2 revenue
+    class I1,I2,I3,I4 ingestion
+    class P1,P2,P3,P4 processing
+    class D1,D2,D3,D4 storage
+    class O1,O2,O3,O4 output
+```
+
+---
+
+## 🔄 Complete Data Pipeline Architecture
+
+### 1️⃣ Fee Processing Pipeline
+
+```mermaid
+flowchart LR
+    subgraph Input["Fee Input Stream"]
+        F1[Creator Fees<br/>Collected<br/>💰]
+        F2[Lending Interest<br/>Accrued<br/>💵]
+    end
+    
+    subgraph Pipeline["Fee Split Pipeline"]
+        S1[Aggregate Fees<br/>🔢]
+        S2[Calculate Splits<br/>25/25/50<br/>⚖️]
+        S3[Route to Engines<br/>🔀]
+    end
+    
+    subgraph Output["Distribution Targets"]
+        O1[Reward Engine<br/>25%<br/>👥]
+        O2[Chart Support<br/>25%<br/>📈]
+        O3[Lending Pool<br/>50%<br/>🏦]
+    end
+    
+    F1 --> S1
+    F2 --> S1
+    S1 --> S2
+    S2 --> S3
+    S3 --> O1
+    S3 --> O2
+    S3 --> O3
+    
+    classDef input fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
+    classDef process fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
+    classDef output fill:#14F195,stroke:#000,stroke-width:2px,color:#000
+    
+    class F1,F2 input
+    class S1,S2,S3 process
     class O1,O2,O3 output
 ```
 
-## 🧠 Technical Analysis Decision Flow
----
+### 2️⃣ Holder Rewards Pipeline
 
 ```mermaid
 flowchart TD
-    Start([Price Data Input<br/>📊]) --> RSI[Calculate RSI<br/>📈]
-    Start --> MACD[Calculate MACD<br/>📊]
+    subgraph Input["Data Sources"]
+        D1[Fee Allocation<br/>25% Share<br/>💰]
+        D2[Interest Revenue<br/>50% Share<br/>💵]
+        D3[Holder Snapshot<br/>On-Chain Query<br/>👥]
+    end
     
-    RSI --> RSI_Check{RSI < 30?<br/>Oversold?}
-    MACD --> MACD_Check{MACD > 0?<br/>Bullish?}
+    subgraph Processing["Reward Calculation Pipeline"]
+        P1[Aggregate SOL Pool<br/>📊]
+        P2[Query All Holders<br/>🔍]
+        P3[Calculate Token %<br/>Per Holder<br/>🧮]
+        P4[Compute SOL Share<br/>Proportional<br/>💎]
+        P5[Validate Amounts<br/>✅]
+    end
     
-    RSI_Check -->|Yes| RSI_True[RSI Signal<br/>✅]
-    RSI_Check -->|No| RSI_False[Wait<br/>⏳]
+    subgraph Distribution["15-Minute Distribution"]
+        E1[Batch Transactions<br/>⚡]
+        E2[Execute Transfers<br/>Multi-Send<br/>📤]
+        E3[Confirm On-Chain<br/>✓]
+        E4[Update Analytics<br/>📈]
+    end
     
-    MACD_Check -->|Yes| MACD_True[MACD Signal<br/>✅]
-    MACD_Check -->|No| MACD_False[Wait<br/>⏳]
+    D1 --> P1
+    D2 --> P1
+    D3 --> P2
     
-    RSI_True --> Both_Check{Both Signals<br/>True?}
-    MACD_True --> Both_Check
+    P1 --> P3
+    P2 --> P3
+    P3 --> P4
+    P4 --> P5
     
-    Both_Check -->|Yes| Execute[Execute Buy<br/>🛒]
-    Both_Check -->|No| Wait[Wait for Next<br/>Cycle ⏰]
+    P5 --> E1
+    E1 --> E2
+    E2 --> E3
+    E3 --> E4
     
-    RSI_False --> Wait
-    MACD_False --> Wait
+    classDef input fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
+    classDef process fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
+    classDef output fill:#14F195,stroke:#000,stroke-width:2px,color:#000
     
-    Execute --> Log[Log Transaction<br/>📝]
-    Log --> Update[Update Analytics<br/>📊]
-    Update --> Wait
+    class D1,D2,D3 input
+    class P1,P2,P3,P4,P5 process
+    class E1,E2,E3,E4 output
+```
+
+### 3️⃣ Chart Support Technical Analysis Pipeline
+
+```mermaid
+flowchart TD
+    subgraph DataStream["Real-Time Market Data"]
+        M1[Binance WebSocket<br/>Price Feed<br/>💹]
+        M2[Jupiter API<br/>Liquidity Data<br/>🪐]
+        M3[Pyth Oracle<br/>Price Verification<br/>🔮]
+    end
     
-    Wait --> Start
+    subgraph Analysis["Multi-Timeframe Analysis"]
+        A1[1-Min Candles<br/>🕐]
+        A2[5-Min Candles<br/>🕔]
+        A3[Calculate RSI<br/>14-Period<br/>📊]
+        A4[Calculate MACD<br/>12,26,9<br/>📈]
+        A5[Volume Analysis<br/>📉]
+    end
     
-    %% Styling
-    classDef start fill:#4caf50,stroke:#000,stroke-width:3px,color:#fff
-    classDef process fill:#2196f3,stroke:#000,stroke-width:2px,color:#fff
-    classDef decision fill:#ff9800,stroke:#000,stroke-width:2px,color:#fff
-    classDef success fill:#4caf50,stroke:#000,stroke-width:2px,color:#fff
-    classDef wait fill:#f44336,stroke:#000,stroke-width:2px,color:#fff
+    subgraph Decision["Signal Generation"]
+        S1{RSI < 30?<br/>Oversold}
+        S2{MACD > 0?<br/>Bullish}
+        S3{Volume Check<br/>Sufficient?}
+        S4[Combine Signals<br/>⚡]
+    end
     
-    class Start start
-    class RSI,MACD,RSI_True,MACD_True,Execute,Log,Update process
-    class RSI_Check,MACD_Check,Both_Check decision
-    class Execute success
-    class RSI_False,MACD_False,Wait wait
+    subgraph Execution["Buy Execution Pipeline"]
+        E1[Calculate Position<br/>10% Max<br/>💰]
+        E2[Execute DEX Swap<br/>Jupiter/Raydium<br/>🛒]
+        E3[Confirm Transaction<br/>✓]
+        E4[Update Chart Data<br/>📊]
+    end
+    
+    M1 --> A1
+    M1 --> A2
+    M2 --> A5
+    M3 --> A3
+    
+    A1 --> A3
+    A2 --> A3
+    A1 --> A4
+    A2 --> A4
+    
+    A3 --> S1
+    A4 --> S2
+    A5 --> S3
+    
+    S1 --> S4
+    S2 --> S4
+    S3 --> S4
+    
+    S4 -->|Signal: BUY| E1
+    S4 -->|Signal: WAIT| DataStream
+    
+    E1 --> E2
+    E2 --> E3
+    E3 --> E4
+    E4 --> DataStream
+    
+    classDef data fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
+    classDef analysis fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
+    classDef decision fill:#F7931A,stroke:#000,stroke-width:2px,color:#fff
+    classDef execution fill:#14F195,stroke:#000,stroke-width:2px,color:#000
+    
+    class M1,M2,M3 data
+    class A1,A2,A3,A4,A5 analysis
+    class S1,S2,S3,S4 decision
+    class E1,E2,E3,E4 execution
+```
+
+### 4️⃣ Lending Pool Pipeline
+
+```mermaid
+flowchart TD
+    subgraph Accumulation["Pool Accumulation Phase"]
+        A1[Fee Allocation<br/>50% Share<br/>💰]
+        A2[Interest Repayments<br/>From Borrowers<br/>💵]
+        A3[Aggregate Pool<br/>Track Balance<br/>📊]
+        A4{Balance ≥<br/>$50,000?}
+    end
+    
+    subgraph BorrowRequest["Loan Request Pipeline"]
+        B1[User Deposits Exen<br/>Collateral<br/>🔐]
+        B2[Fetch Price Oracle<br/>Pyth Network<br/>🔮]
+        B3[Calculate LTV<br/>60% Max<br/>🧮]
+        B4[Verify Limits<br/>$500k Cap<br/>✅]
+        B5[Check Pool Liquidity<br/>Available USD<br/>💧]
+    end
+    
+    subgraph Underwriting["Algorithmic Underwriting"]
+        U1[Calculate Health Factor<br/>Collateral/Debt<br/>📈]
+        U2[Set Interest Rate<br/>12-18% APY<br/>💹]
+        U3[Generate Loan Terms<br/>Smart Contract<br/>📜]
+        U4[User Approval<br/>Sign Transaction<br/>✍️]
+    end
+    
+    subgraph Disbursement["Loan Disbursement"]
+        D1[Lock Collateral<br/>Vault Contract<br/>🔒]
+        D2[Mint Debt Position<br/>NFT Record<br/>🎫]
+        D3[Transfer USDC/USDT<br/>To Borrower<br/>💸]
+        D4[Record On-Chain<br/>Transaction Log<br/>📝]
+    end
+    
+    subgraph Monitoring["Continuous Monitoring"]
+        MO1[Real-Time Price Feeds<br/>Every Block<br/>⏱️]
+        MO2[Calculate Health Factor<br/>Live Updates<br/>📊]
+        MO3{Health < 1.0?<br/>Liquidate?}
+        MO4[Alert Dashboard<br/>⚠️]
+    end
+    
+    subgraph InterestAccrual["Interest Accrual Pipeline"]
+        I1[Calculate Daily Interest<br/>Per Position<br/>💵]
+        I2[Accrue to Pool<br/>Revenue<br/>📈]
+        I3[Split 50/50<br/>⚖️]
+        I4[→ Holder Rewards<br/>50%<br/>👥]
+        I5[→ Chart Buyback<br/>50%<br/>📈]
+    end
+    
+    A1 --> A3
+    A2 --> A3
+    A3 --> A4
+    A4 -->|Yes| BorrowRequest
+    A4 -->|No| A3
+    
+    B1 --> B2
+    B2 --> B3
+    B3 --> B4
+    B4 --> B5
+    
+    B5 --> U1
+    U1 --> U2
+    U2 --> U3
+    U3 --> U4
+    
+    U4 --> D1
+    D1 --> D2
+    D2 --> D3
+    D3 --> D4
+    
+    D4 --> MO1
+    MO1 --> MO2
+    MO2 --> MO3
+    MO3 -->|No| MO4
+    MO3 -->|Yes| Liquidation
+    
+    MO2 --> I1
+    I1 --> I2
+    I2 --> I3
+    I3 --> I4
+    I3 --> I5
+    
+    subgraph Liquidation["Liquidation Pipeline"]
+        L1[Trigger Liquidation<br/>Health < 1.0<br/>🚨]
+        L2[Sell Collateral<br/>DEX Market Order<br/>🛒]
+        L3[Repay Debt<br/>From Proceeds<br/>💰]
+        L4[Calculate Surplus<br/>Or Deficit<br/>🧮]
+        L5[Distribute Surplus<br/>50/50 Split<br/>📊]
+        L6[Burn Debt NFT<br/>Close Position<br/>🔥]
+    end
+    
+    L1 --> L2
+    L2 --> L3
+    L3 --> L4
+    L4 --> L5
+    L5 --> L6
+    L6 --> A3
+    
+    classDef accumulation fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
+    classDef borrow fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
+    classDef underwriting fill:#F7931A,stroke:#000,stroke-width:2px,color:#fff
+    classDef disbursement fill:#14F195,stroke:#000,stroke-width:2px,color:#000
+    classDef monitoring fill:#FF6B9D,stroke:#000,stroke-width:2px,color:#fff
+    classDef interest fill:#CE422B,stroke:#000,stroke-width:2px,color:#fff
+    classDef liquidation fill:#ff4444,stroke:#000,stroke-width:2px,color:#fff
+    
+    class A1,A2,A3,A4 accumulation
+    class B1,B2,B3,B4,B5 borrow
+    class U1,U2,U3,U4 underwriting
+    class D1,D2,D3,D4 disbursement
+    class MO1,MO2,MO3,MO4 monitoring
+    class I1,I2,I3,I4,I5 interest
+    class L1,L2,L3,L4,L5,L6 liquidation
+```
+
+### 5️⃣ Revenue Redistribution Pipeline
+
+```mermaid
+flowchart LR
+    subgraph Sources["Revenue Sources"]
+        R1[Creator Fees<br/>💰]
+        R2[Lending Interest<br/>12-18% APY<br/>💵]
+        R3[Liquidation Surplus<br/>🏆]
+    end
+    
+    subgraph Aggregation["Revenue Aggregation"]
+        AG1[Collect All Revenue<br/>📊]
+        AG2[Calculate Totals<br/>🧮]
+        AG3[Route by Source<br/>🔀]
+    end
+    
+    subgraph Split1["Creator Fee Split"]
+        S1[25% → Rewards<br/>👥]
+        S2[25% → Buyback<br/>📈]
+        S3[50% → Lending<br/>🏦]
+    end
+    
+    subgraph Split2["Interest Split"]
+        I1[50% → Rewards<br/>👥]
+        I2[50% → Buyback<br/>📈]
+    end
+    
+    subgraph Split3["Surplus Split"]
+        L1[50% → Rewards<br/>👥]
+        L2[50% → Buyback<br/>📈]
+    end
+    
+    subgraph Consolidation["Consolidate Streams"]
+        C1[Total Reward Pool<br/>💎]
+        C2[Total Buyback Pool<br/>📈]
+        C3[Lending Pool<br/>🏦]
+    end
+    
+    subgraph Execution["Execute Distribution"]
+        E1[SOL Airdrops<br/>Every 15min<br/>📤]
+        E2[Algorithmic Buys<br/>Real-time<br/>🛒]
+        E3[USD Lending<br/>On-Demand<br/>💸]
+    end
+    
+    R1 --> AG1
+    R2 --> AG1
+    R3 --> AG1
+    
+    AG1 --> AG2
+    AG2 --> AG3
+    
+    AG3 -->|Creator Fees| Split1
+    AG3 -->|Interest| Split2
+    AG3 -->|Surplus| Split3
+    
+    S1 --> C1
+    S2 --> C2
+    S3 --> C3
+    
+    I1 --> C1
+    I2 --> C2
+    
+    L1 --> C1
+    L2 --> C2
+    
+    C1 --> E1
+    C2 --> E2
+    C3 --> E3
+    
+    classDef source fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
+    classDef process fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
+    classDef split fill:#F7931A,stroke:#000,stroke-width:2px,color:#fff
+    classDef consolidate fill:#14F195,stroke:#000,stroke-width:2px,color:#000
+    classDef execute fill:#28a745,stroke:#000,stroke-width:2px,color:#fff
+    
+    class R1,R2,R3 source
+    class AG1,AG2,AG3 process
+    class S1,S2,S3,I1,I2,L1,L2 split
+    class C1,C2,C3 consolidate
+    class E1,E2,E3 execute
+```
+
+### 6️⃣ Analytics & Monitoring Pipeline
+
+```mermaid
+flowchart TD
+    subgraph DataCollection["Data Collection Layer"]
+        DC1[Transaction Events<br/>Solana Blockchain<br/>⛓️]
+        DC2[Price Data Stream<br/>Pyth/Binance<br/>💹]
+        DC3[User Interactions<br/>Smart Contracts<br/>👥]
+        DC4[System Metrics<br/>Performance<br/>📊]
+    end
+    
+    subgraph Processing["Data Processing Pipeline"]
+        DP1[Event Parser<br/>Decode Transactions<br/>🔍]
+        DP2[Data Transformer<br/>Normalize Format<br/>🔄]
+        DP3[Aggregation Engine<br/>Calculate Metrics<br/>🧮]
+        DP4[Time-Series DB<br/>PostgreSQL/TimescaleDB<br/>💾]
+    end
+    
+    subgraph Analytics["Analytics Engine"]
+        AN1[Holder Analytics<br/>Distribution Stats<br/>👥]
+        AN2[Chart Analytics<br/>Buyback Performance<br/>📈]
+        AN3[Lending Analytics<br/>Pool Health<br/>🏦]
+        AN4[Revenue Analytics<br/>Fee Tracking<br/>💰]
+    end
+    
+    subgraph Visualization["Real-Time Dashboard"]
+        VIZ1[Live Charts<br/>TradingView<br/>📊]
+        VIZ2[KPI Metrics<br/>Real-time<br/>🎯]
+        VIZ3[User Portfolio<br/>Personal Stats<br/>👤]
+        VIZ4[Protocol Health<br/>System Status<br/>🏥]
+    end
+    
+    subgraph Alerting["Alert System"]
+        AL1[Threshold Monitors<br/>⚠️]
+        AL2[Liquidation Alerts<br/>🚨]
+        AL3[System Health<br/>💚]
+        AL4[User Notifications<br/>📧]
+    end
+    
+    DC1 --> DP1
+    DC2 --> DP2
+    DC3 --> DP1
+    DC4 --> DP3
+    
+    DP1 --> DP2
+    DP2 --> DP3
+    DP3 --> DP4
+    
+    DP4 --> AN1
+    DP4 --> AN2
+    DP4 --> AN3
+    DP4 --> AN4
+    
+    AN1 --> VIZ1
+    AN1 --> VIZ3
+    AN2 --> VIZ1
+    AN2 --> VIZ2
+    AN3 --> VIZ2
+    AN3 --> VIZ4
+    AN4 --> VIZ2
+    
+    AN1 --> AL1
+    AN2 --> AL1
+    AN3 --> AL2
+    AN4 --> AL3
+    
+    AL1 --> AL4
+    AL2 --> AL4
+    AL3 --> AL4
+    
+    classDef collection fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
+    classDef processing fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
+    classDef analytics fill:#F7931A,stroke:#000,stroke-width:2px,color:#fff
+    classDef visualization fill:#14F195,stroke:#000,stroke-width:2px,color:#000
+    classDef alerting fill:#ff4444,stroke:#000,stroke-width:2px,color:#fff
+    
+    class DC1,DC2,DC3,DC4 collection
+    class DP1,DP2,DP3,DP4 processing
+    class AN1,AN2,AN3,AN4 analytics
+    class VIZ1,VIZ2,VIZ3,VIZ4 visualization
+    class AL1,AL2,AL3,AL4 alerting
+```
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -320,7 +579,6 @@ flowchart TD
 # You'll automatically start earning rewards once you hold tokens
 ```
 
-## 💰 Fee Distribution Flow
 **2. Passive Income Begins**
 ```bash
 # Rewards automatically distributed every 15 minutes
@@ -328,11 +586,6 @@ flowchart TD
 # Track earnings in real-time dashboard
 ```
 
-```mermaid
-pie title Deep Protocol Fee Distribution
-    "Creator Fees (100%)" : 100
-    "Holder Rewards (50%)" : 50
-    "Chart Support (50%)" : 50
 **3. Monitor Performance**
 ```bash
 # View SOL rewards accumulated
@@ -340,48 +593,14 @@ pie title Deep Protocol Fee Distribution
 # Observe chart support in action
 ```
 
-## 🎯 Protocol Performance Metrics
 ### For Borrowers (Lending Pool Users)
 
-```mermaid
-graph LR
-    subgraph "Key Performance Indicators"
-        A[Distribution Success<br/>99.8%]
-        B[Support Accuracy<br/>67.3%]
-        C[Holder Retention<br/>73.2%]
-        D[Price Stability<br/>+24.7%]
-        E[Fee Efficiency<br/>97.1%]
-    end
-    
-    subgraph "Target Benchmarks"
-        F[Target: >99%]
-        G[Target: >60%]
-        H[Target: >70%]
-        I[Target: >20%]
-        J[Target: >95%]
-    end
-    
-    A --> F
-    B --> G
-    C --> H
-    D --> I
-    E --> J
-    
-    %% Styling
-    classDef metric fill:#e8f5e8,stroke:#4caf50,stroke-width:2px
-    classDef target fill:#fff3e0,stroke:#ff9800,stroke-width:2px
-    classDef exceeded fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
-    
-    class A,B,C,D,E metric
-    class F,G,H,I,J target
-    class A,B,C,D,E exceeded
 **1. Wait for Pool Activation** ⏳
 ```
 Lending pool activates when $50,000 USD is accumulated
 Current progress: [████░░░░░] 45% toward activation
 ```
 
-## 🌐 Ecosystem Stakeholder Map
 **2. Deposit Collateral**
 ```bash
 # Send Exen tokens to lending pool smart contract
@@ -389,54 +608,6 @@ Current progress: [████░░░░░] 45% toward activation
 # Borrow limit calculated: (Token Value) × 60% LTV
 ```
 
-```mermaid
-graph TB
-    subgraph "Deep Protocol Ecosystem"
-        Protocol[Deep Protocol<br/>🏛️<br/>Core Engine]
-        
-        subgraph "Primary Stakeholders"
-            Holders[Token Holders<br/>👥<br/>Passive Income]
-            Creators[Content Creators<br/>🎨<br/>Fee Payers]
-        end
-        
-        subgraph "Secondary Stakeholders"
-            Traders[Active Traders<br/>📈<br/>Market Participants]
-            Analysts[Data Analysts<br/>📊<br/>Insight Seekers]
-            Developers[Protocol Developers<br/>👨‍💻<br/>Builders]
-        end
-        
-        subgraph "External Systems"
-            Market[Solana Market<br/>🏪<br/>Trading Venue]
-            Oracles[Price Oracles<br/>🔮<br/>Data Providers]
-            Analytics[Analytics Platforms<br/>📈<br/>Data Consumers]
-        end
-    end
-    
-    %% Primary relationships
-    Creators -->|Pay Fees| Protocol
-    Protocol -->|SOL Rewards| Holders
-    Protocol -->|Support Buys| Market
-    Protocol -->|Data Feed| Analytics
-    
-    %% Secondary relationships
-    Traders -->|Trade Tokens| Market
-    Analysts -->|Consume Data| Analytics
-    Developers -->|Maintain| Protocol
-    
-    %% External relationships
-    Protocol -->|Fetch Prices| Oracles
-    Market -->|Price Data| Protocol
-    
-    %% Styling
-    classDef protocol fill:#9945FF,stroke:#000,stroke-width:3px,color:#fff
-    classDef primary fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
-    classDef secondary fill:#F7931A,stroke:#000,stroke-width:2px,color:#fff
-    classDef external fill:#28a745,stroke:#000,stroke-width:2px,color:#fff
-    
-    class Protocol protocol
-    class Holders,Creators primary
-    class Traders,Analysts,Developers secondary
-    class Market,Oracles,Analytics external
 **3. Borrow USD Stablecoins**
 ```bash
 # Borrow up to your calculated limit
@@ -444,7 +615,6 @@ graph TB
 # Interest revenue shared: 50% → holders, 50% → buyback
 ```
 
-## ⚡ Real-Time Processing Timeline
 **4. Repay & Recover**
 ```bash
 # Repay USD anytime at your pace
@@ -452,26 +622,6 @@ graph TB
 # If price rose: You benefit from the gain after repaying loan
 ```
 
-```mermaid
-gantt
-    title Deep Protocol Processing Timeline
-    dateFormat X
-    axisFormat %M:%S
-    
-    section Reward Cycle
-    Collect Fees          :active, fees, 0, 30s
-    Calculate Rewards    :calc, after fees, 30s
-    Distribute SOL       :dist, after calc, 60s
-    
-    section Support Cycle
-    Analyze Market       :analyze, 0, 45s
-    Generate Signals     :signals, after analyze, 15s
-    Execute Buys         :execute, after signals, 30s
-    
-    section Data Processing
-    Update Analytics     :analytics, 0, 90s
-    Log Transactions     :logging, 0, 90s
-    Monitor Performance  :monitor, 0, 90s
 ### Installation (For Developers)
 
 ```bash
@@ -492,7 +642,6 @@ npm run test
 npm run dev
 ```
 
-## 🔧 Smart Contract Architecture
 ---
 
 ## 📊 Key Metrics & Performance
@@ -533,57 +682,6 @@ npm run dev
 
 **Scenario: Alice Wants to Borrow USD**
 
-```mermaid
-graph TB
-    subgraph "Smart Contract Layer"
-        Main[Main Protocol Contract<br/>📜]
-        
-        subgraph "Core Modules"
-            FeeSplitter[Fee Splitter<br/>⚖️]
-            RewardEngine[Reward Engine<br/>💸]
-            SupportEngine[Support Engine<br/>🛒]
-        end
-        
-        subgraph "Utility Contracts"
-            Oracle[Price Oracle<br/>🔮]
-            Analytics[Analytics Contract<br/>📊]
-            Treasury[Treasury Contract<br/>🏦]
-        end
-        
-        subgraph "External Integrations"
-            Jupiter[Jupiter API<br/>🪐]
-            Pyth[Pyth Network<br/>📡]
-            Solana[Solana RPC<br/>⛓️]
-        end
-    end
-    
-    %% Main contract connections
-    Main --> FeeSplitter
-    Main --> RewardEngine
-    Main --> SupportEngine
-    
-    %% Module connections
-    FeeSplitter --> RewardEngine
-    FeeSplitter --> SupportEngine
-    RewardEngine --> Treasury
-    SupportEngine --> Treasury
-    
-    %% External connections
-    Oracle --> Pyth
-    Oracle --> Jupiter
-    Analytics --> Main
-    Treasury --> Solana
-    
-    %% Styling
-    classDef main fill:#9945FF,stroke:#000,stroke-width:3px,color:#fff
-    classDef core fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
-    classDef utility fill:#F7931A,stroke:#000,stroke-width:2px,color:#fff
-    classDef external fill:#28a745,stroke:#000,stroke-width:2px,color:#fff
-    
-    class Main main
-    class FeeSplitter,RewardEngine,SupportEngine core
-    class Oracle,Analytics,Treasury utility
-    class Jupiter,Pyth,Solana external
 ```
 Alice's Position:
 ├── Owns 1,000,000 Exen tokens
@@ -592,56 +690,12 @@ Alice's Position:
 ├── Maximum borrow (60% LTV): $60,000
 └── Borrow limit: $60,000
 
-## 📈 Revenue Flow Analysis
 Pool Conditions:
 ├── Interest rate: 14% APY
 ├── Pool balance: $100,000
 ├── Total borrowed: $70,000
 └── Utilization: 70%
 
-```mermaid
-graph LR
-    subgraph "Revenue Sources"
-        A[Creator Fees<br/>💰]
-    end
-    
-    subgraph "Distribution"
-        B[50% Holder Rewards<br/>👥]
-        C[50% Chart Support<br/>📈]
-    end
-    
-    subgraph "Value Creation"
-        D[Passive Income<br/>💸]
-        E[Price Stability<br/>📊]
-        F[Community Growth<br/>🌱]
-    end
-    
-    subgraph "Ecosystem Benefits"
-        G[Increased Holdings<br/>📈]
-        H[Reduced Volatility<br/>⚖️]
-        I[Network Effects<br/>🕸️]
-    end
-    
-    A --> B
-    A --> C
-    B --> D
-    C --> E
-    D --> F
-    E --> F
-    F --> G
-    F --> H
-    F --> I
-    
-    %% Styling
-    classDef revenue fill:#4caf50,stroke:#000,stroke-width:2px,color:#fff
-    classDef distribution fill:#2196f3,stroke:#000,stroke-width:2px,color:#fff
-    classDef value fill:#ff9800,stroke:#000,stroke-width:2px,color:#fff
-    classDef benefit fill:#9c27b0,stroke:#000,stroke-width:2px,color:#fff
-    
-    class A revenue
-    class B,C distribution
-    class D,E,F value
-    class G,H,I benefit
 Alice's Action:
 ├── Deposits 1,000,000 Exen as collateral
 ├── Borrows $50,000 USD
@@ -664,28 +718,8 @@ IF PRICE DROPS to $0.08:
 └── System remains stable
 ```
 
-## 🎯 Success Metrics Dashboard
 ### Revenue Generation & Redistribution
 
-```mermaid
-quadrantChart
-    title Deep Protocol Success Metrics
-    x-axis Low Impact --> High Impact
-    y-axis Low Effort --> High Effort
-    
-    quadrant-1 High Impact, High Effort
-    quadrant-2 Low Impact, High Effort
-    quadrant-3 Low Impact, Low Effort
-    quadrant-4 High Impact, Low Effort
-    
-    "Distribution Success (99.8%)": [0.9, 0.8]
-    "Support Accuracy (67.3%)": [0.7, 0.6]
-    "Holder Retention (73.2%)": [0.8, 0.7]
-    "Price Stability (+24.7%)": [0.9, 0.5]
-    "Fee Efficiency (97.1%)": [0.6, 0.4]
-    "Community Growth": [0.8, 0.9]
-    "Technical Innovation": [0.7, 0.8]
-    "Market Adoption": [0.9, 0.6]
 ```
 Daily Interest Revenue Example:
 
@@ -898,28 +932,16 @@ Current State:
 
 ---
 
-## 📋 Diagram Usage
 ## 📄 License
 
-These diagrams are designed to be:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-- **GitHub Compatible**: All diagrams use Mermaid syntax for perfect GitHub rendering
-- **Interactive**: Click and explore relationships in supported viewers
-- **Maintainable**: Easy to update as the protocol evolves
-- **Professional**: Clean, consistent styling throughout
 ---
 
-## 🔄 Updating Diagrams
 ## ⚖️ Legal Disclaimer
 
-To update these diagrams:
 **Important**: The Exen Protocol involves financial risk. 
 
-1. Modify the Mermaid code in this document
-2. Test rendering in GitHub or Mermaid Live Editor
-3. Update corresponding documentation as needed
-4. Version control all changes
 The Exen Protocol is provided "as-is" without warranties. By using this protocol, you acknowledge:
 
 - ⚠️ **Risk of Loss**: Your capital is at risk, including from collateral price volatility
@@ -945,6 +967,7 @@ Join us in building a financial system where access to capital isn't determined 
 ---
 
 *Last updated: January 2025*
+
 <div align="center">
 
 **Built by the community. For the community. Forever permissionless.**
