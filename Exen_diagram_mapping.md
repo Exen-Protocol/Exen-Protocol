@@ -1,668 +1,826 @@
-# 🚀 Exen Protocol - Decentralized Internet Banking Infrastructure
+# 📊 Exen Protocol - Complete End-to-End System Mapping
 
-> **Building the future of finance: A protocol that rewards holders, supports chart health through algorithmic buybacks, AND enables permissionless on-chain lending—all simultaneously**
+## 🌍 Full Protocol Flow Architecture
 
-<br/>🛒]
-        end
-        
-        subgraph "Lending Engine"
-            LP[Lending Pool<br/>🏦]
-            LM[Loan Manager<br/>🔒]
-        end
-        
-        subgraph "Revenue Cycle"
-            IR[Interest Revenue<br/>💵]
-            RC[Revenue Cycle<br/>🔄]
-        end
-        
-        subgraph "Outputs"
-            H[Token Holders<br/>👥]
-            M[Market<br/>🏪]
-            B[Borrowers<br/>💰]
-        end
-    end
-    
-    %% Main flow
-    CF --> FS
-    FS --> RE
-    FS --> TA
-    FS --> LP
-    LP --> IR
-    IR --> RC
-    RE --> RD
-    RC --> RD
-    RC --> BE
-    TA --> BE
-    LP --> LM
-    RD --> H
-    BE --> M
-    LM --> B
-    
-    %% Styling
-    classDef primary fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
-    classDef secondary fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
-    classDef accent fill:#F7931A,stroke:#000,stroke-width:2px,color:#fff
-    classDef success fill:#28a745,stroke:#000,stroke-width:2px,color:#fff
-    classDef lending fill:#FF6B9D,stroke:#000,stroke-width:2px,color:#fff
-    classDef revenue fill:#14F195,stroke:#000,stroke-width:2px,color:#000
-    
-    class CF,FS primary
-    class RE,RD secondary
-    class TA,BE accent
-    class LP,LM lending
-    class IR,RC revenue
-    class H,M,B success
 ```
+CREATOR FEES (100%)
+    ↓
+PROTOCOL RECEIVES FEES
+    ↓
+FEE SPLITTER (25/25/50)
+    ├─────────────────────────────────────────────────────────────┐
+    │                                                               │
+    ├─ 25% HOLDER REWARDS ENGINE          │  25% CHART BUYBACK     │  50% LENDING POOL
+    │                                      │  ENGINE               │
+    │  ✓ Fee Accumulation                 │                       │  ✓ Fee Accumulation
+    │  ✓ Calculate 25% of fees            │  ✓ Fee Accumulation  │  ✓ Activate at $50k
+    │  ✓ Proportional distribution        │  ✓ Technical analysis │  ✓ USD stablecoin pool
+    │  ✓ 15-minute cycles                 │  ✓ RSI calculation   │  ✓ Interest accrual
+    │  ✓ All holders included             │  ✓ MACD calculation  │  ✓ Risk management
+    │                                      │  ✓ Multi-timeframe   │
+    │  DISTRIBUTION                        │    confirmation      │  COLLATERAL MANAGEMENT
+    │  ├─ Calculate holder percentages     │  ✓ Position sizing  │  ├─ Wallet analysis
+    │  ├─ SOL conversion                  │  ✓ Risk management  │  ├─ Credit scoring
+    │  ├─ Send to all holders             │  ✓ Execution        │  ├─ Auto-decisioning
+    │  └─ Record on-chain                 │                       │  ├─ Collateral deposit
+    │                                      │  BUY EXECUTION       │  ├─ Health monitoring
+    │  MONTHLY: $X,XXX to holders         │  ├─ Oversold detect │  ├─ Liquidation
+    │                                      │  ├─ Signal confirm   │  └─ Surplus redistribution
+    │                                      │  ├─ Market order     │
+    │                                      │  ├─ Price impact     │  LENDING FLOW
+    │                                      │  └─ Log transaction  │  ├─ User initiates
+    │                                      │                       │  ├─ Wallet auto-scored
+    │                                      │  MONTHLY: $X,XXX     │  ├─ Decision: Yes/No/Maybe
+    │                                      │  to chart support    │  ├─ Deposit collateral
+    │                                      │                       │  ├─ Escrow lock
+    │                                      │                       │  ├─ USD issued
+    │                                      │                       │  ├─ Interest accrues
+    │                                      │                       │  ├─ Health monitored
+    │                                      │                       │  ├─ User repays
+    │                                      │                       │  └─ Collateral released
+    │
+    ├─────────────────────────────────────────────────────────────┘
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Solana](https://img.shields.io/badge/Built%20on-Solana-9945FF?logo=solana&logoColor=white)](https://solana.com/)
-[![Rust](https://img.shields.io/badge/Smart%20Contracts-Rust-CE422B?logo=rust&logoColor=white)](https://www.rust-lang.org/)
-[![Python](https://img.shields.io/badge/Analytics-Python-3776AB?logo=python&logoColor=white)](https://python.org/)
+LENDING POOL INTEREST REVENUE (100%)
+    ↓
+    ├─ 50% → HOLDER REWARDS (SOL Distribution)
+    │   └─ Added to 25% allocation
+    │       └─ Increased rewards every 15 minutes
+    │
+    └─ 50% → CHART BUYBACK SUPPORT (Enhanced Buying Power)
+        └─ Added to 25% allocation
+            └─ Enhanced algorithmic buybacks
 
----
-
-## 🌐 The Vision: Permissionless Finance Infrastructure
-
-The internet economy demands true internet banking infrastructure. Today, most people cannot achieve full financial independence on-chain because traditional banks gatekeep capital access through legacy credit systems that ignore on-chain reputation and creditworthiness. **The infrastructure for decentralized underwriting barely exists.**
-
-**Exen is building distributed internet banking infrastructure for the blockchain era.** We're constructing an internet-native lending system backed by on-chain reputation and transparent collateral mechanics—eliminating gatekeepers from determining who deserves access to capital.
-
-### Why This Matters
-
-Money didn't originate from barter; it originated as **credit**. Money is fundamentally a **social ledger**—a record of who owes what to whom. To achieve true independence from fiat banking, we need a decentralized social ledger where:
-
-- ✅ **Trust is earned on-chain** through participation and collateral backing
-- ✅ **Credit decisions are algorithmic**, not discretionary
-- ✅ **All participants share in protocol profits** through interest revenue redistribution
-- ✅ **Collateral is verifiable** and liquidation is transparent
-- ✅ **Access is permissionless** - no institution approval required
-
-Most leading research confirms that DeFi still lacks reliable reputation-based lending mechanisms. **Exen solves this** by creating a transparent, algorithmic lending system where every participant benefits from the ecosystem's success.
-
-**We are building the financial infrastructure that enables the next billion people to access capital without permission from centralized banks.**
-
----
-
-## 🎯 What Makes Exen Different
-
-While other protocols either reward holders OR support their chart, Exen does **three transformative things simultaneously** through an innovative 25/25/50 fee split system that creates sustainable value for the entire community:
-
-### ⚡ Real-Time Holder Rewards
-- **SOL airdrops every 15 minutes** to all token holders
-- **No staking required** - just hold and earn passive income
-- **100% of holders included** - proportional to token holdings
-- **Transparent on-chain distribution** with verified calculations
-
-### 📈 Intelligent Algorithmic Chart Support
-- **Continuous buyback pressure** using advanced technical analysis
-- **Multi-timeframe analysis**: RSI, MACD on 1m & 5m timeframes
-- **Automated support at key levels** to maintain chart health
-- **Risk-managed execution** with position sizing and stop losses
-
-### 🏦 Permissionless Decentralized Lending
-- **Borrow USD stablecoins** by collateralizing Exen tokens
-- **No credit checks required** - algorithmic underwriting only
-- **Dynamic interest rates** (12-18% APY based on market conditions)
-- **60% maximum LTV ratio** for conservative risk management
-- **Smart liquidation mechanics** that protect both borrowers and protocol
-- **ALL lending revenue redistributed** - 50% to holder rewards, 50% to chart buyback
-
----
-
-## 🏗️ Architecture Overview
-
-```mermaid
-graph LR
-    CF["Creator Fees<br/>💰 100%"]
-    
-    subgraph Split["25/25/50 Split"]
-        S1["25% Holder<br/>Rewards"]
-        S2["25% Chart<br/>Support"]
-        S3["50% Lending<br/>Pool"]
-    end
-    
-    subgraph Rewards["Reward Engine"]
-        R1["SOL Calc<br/>📊"]
-        R2["15-min<br/>Airdrops<br/>📤"]
-    end
-    
-    subgraph Chart["Chart Support"]
-        C1["RSI/MACD<br/>Analysis<br/>📈"]
-        C2["Algorithmic<br/>Buys<br/>🛒"]
-    end
-    
-    subgraph Lending["Lending Engine"]
-        L1["Pool Accumulation<br/>💳"]
-        L2["USD Lending<br/>🏦"]
-        L3["Interest Revenue<br/>12-18% APY<br/>💵"]
-        L4["Liquidation<br/>Management<br/>🔒"]
-    end
-    
-    subgraph Redistribution["Interest Redistribution 50/50"]
-        LR1["50% → Holder<br/>Rewards"]
-        LR2["50% → Chart<br/>Buyback"]
-    end
-    
-    subgraph Outputs["Ecosystem Outputs"]
-        O1["Token Holders<br/>👥"]
-        O2["Market<br/>🏪"]
-        O3["Borrowers<br/>💰"]
-    end
-    
-    CF --> Split
-    S1 --> Rewards
-    S2 --> Chart
-    S3 --> Lending
-    
-    R1 --> R2
-    C1 --> C2
-    L1 --> L2
-    L2 --> L3
-    L3 --> Redistribution
-    
-    LR1 --> R1
-    LR2 --> C1
-    
-    R2 --> O1
-    C2 --> O2
-    L2 --> O3
-    L4 --> O3
-    
-    classDef input fill:#9945FF,stroke:#000,stroke-width:2px,color:#fff
-    classDef engine fill:#00D9FF,stroke:#000,stroke-width:2px,color:#000
-    classDef lending fill:#FF6B9D,stroke:#000,stroke-width:2px,color:#fff
-    classDef revenue fill:#14F195,stroke:#000,stroke-width:2px,color:#000
-    classDef output fill:#28a745,stroke:#000,stroke-width:2px,color:#fff
-    
-    class CF input
-    class S1,S2,S3 engine
-    class R1,R2,C1,C2 engine
-    class L1,L2,L3,L4 lending
-    class LR1,LR2 revenue
-    class O1,O2,O3 output
+LIQUIDATION SURPLUS (100%)
+    ↓
+    ├─ 50% → HOLDER REWARDS
+    └─ 50% → CHART BUYBACK
 ```
 
 ---
 
-## 🚀 Quick Start
+## 1️⃣ HOLDER REWARDS ENGINE (25% of Fees)
 
-### Prerequisites
-- Solana wallet (Phantom, Solflare, Backpack, etc.)
-- SOL for transaction fees (~0.001-0.01 SOL per transaction)
-- Basic understanding of DeFi concepts
+### Input
+- Creator fees flow in
+- 25% allocation calculated
 
-### For Token Holders (Reward Earners)
+### Processing
+```
+Reward Pool = Total Fees × 25%
 
-**1. Acquire Exen Tokens**
-```bash
-# Buy $EXEN on any Solana DEX (Raydium, Magic Eden, etc.)
-# You'll automatically start earning rewards once you hold tokens
+For each holder:
+  Holder Reward = (Holder Balance / Total Supply) × Reward Pool
 ```
 
-**2. Passive Income Begins**
-```bash
-# Rewards automatically distributed every 15 minutes
-# No actions required - just hold
-# Track earnings in real-time dashboard
+### Output
+- SOL airdrops every 15 minutes
+- Proportional to token holdings
+- No minimum balance required
+- 100% of holders included
+
+### Example
+```
+Total Fees: 100 SOL
+Reward Pool: 25 SOL
+Holders: 4
+
+Holder 1: 50% of supply = 12.5 SOL
+Holder 2: 25% of supply = 6.25 SOL
+Holder 3: 15% of supply = 3.75 SOL
+Holder 4: 10% of supply = 2.5 SOL
 ```
 
-**3. Monitor Performance**
-```bash
-# View SOL rewards accumulated
-# Track portfolio value
-# Observe chart support in action
-```
-
-### For Borrowers (Lending Pool Users)
-
-**1. Wait for Pool Activation** ⏳
-```
-Lending pool activates when $50,000 USD is accumulated
-Current progress: [████░░░░░] 45% toward activation
-```
-
-**2. Wallet Analysis & Credit Score** 📊
-```bash
-# Your Solana wallet is analyzed automatically
-# On-chain transaction history reviewed
-# Credit score generated (300-850 scale)
-
-Analysis includes:
-├── Transaction volume & frequency
-├── Payment consistency & patterns
-├── Inflow reliability
-├── Balance stability
-├── Transaction success rate
-
-Result: Credit Rating + Borrow Limit + Interest Rate
-```
-
-**3. Deposit Collateral** 🔒
-```bash
-# Send Exen tokens to lending pool smart contract
-# Tokens locked in escrow
-# Borrow limit calculated: (Token Value) × 60% LTV
-# Adjusted by your credit score
-```
-
-**4. Borrow USD Stablecoins** 💵
-```bash
-# Borrow up to your calculated limit
-# Pay interest at rate set by credit score (5-18% APY)
-# Interest revenue shared: 50% → holders, 50% → buyback
-```
-
-**5. Repay & Recover** ✅
-```bash
-# Repay USD anytime at your pace
-# Recover your Exen tokens + keep price appreciation
-# If price rose: You benefit from the gain after repaying loan
-```
-
-### Installation (For Developers)
-
-```bash
-# Clone the repository
-git clone https://github.com/exen-protocol/exen-core
-cd exen-protocol
-
-# Install dependencies
-npm install
-
-# Build smart contracts
-npm run build:contracts
-
-# Run tests
-npm run test
-
-# Start development server
-npm run dev
-```
+### Plus: Interest Revenue Boost
+- When lending pool generates interest
+- 50% of that interest distributed as SOL
+- Increases reward pool size
+- Same 15-minute distribution cycle
 
 ---
 
-## 📊 Key Metrics & Performance
+## 2️⃣ CHART BUYBACK ENGINE (25% of Fees)
 
-| Metric | Value | Description |
-|--------|-------|-------------|
-| **Reward Frequency** | Every 15 minutes | SOL airdrops to all holders |
-| **Fee Allocation** | 25% / 25% / 50% | Rewards / Buyback / Lending |
-| **Holders Included** | 100% | All token holders rewarded |
-| **Distribution Method** | Proportional | Based on token holdings |
-| **Technical Indicators** | RSI, MACD | Multi-timeframe analysis |
-| **Support Response** | Real-time | Automated buyback execution |
-| **Lending Pool Min** | $50,000 USD | Activation threshold |
-| **Maximum LTV Ratio** | 60% | Conservative collateral usage |
-| **Per-User Borrow Cap** | $500,000 USD | Concentration risk protection |
-| **Target APY** | 12-18% | Variable based on utilization |
-| **Interest Distribution** | 50/50 | Split between holders & buyback |
+### Input
+- Creator fees flow in
+- 25% allocation accumulated
+- Price data feeds (1m and 5m candles)
 
----
-
-## 🏦 Lending Pool Deep Dive
-
-### Lending Workflow: From Wallet Analysis to Loan Approval
-
-**Step 1: Wallet Analysis** 📊
+### Processing
 ```
-Automatic on-chain credit scoring when user initiates lending:
-├── Transaction History Review
-│   ├── Total inflow/outflow analysis
-│   ├── Transaction frequency & patterns
-│   └── 24/7 monitoring capability
+Step 1: Technical Analysis
+├─ Calculate RSI (14 period)
+│  ├─ 1-minute timeframe
+│  └─ 5-minute timeframe
 │
-├── Credibility Assessment (5 factors)
-│   ├── Transaction Volume (20 pts)
-│   ├── Payment Consistency (20 pts)
-│   ├── Inflow Reliability (20 pts)
-│   ├── Balance Stability (20 pts)
-│   └── Transaction Success Rate (20 pts)
+├─ Calculate MACD
+│  ├─ 1-minute timeframe
+│  └─ 5-minute timeframe
 │
-└── Credit Score Generated (300-850)
-    ├── 750+: Excellent (8% APY, 60% LTV)
-    ├── 650-749: Very Good (10% APY, 60% LTV)
-    ├── 550-649: Good (12% APY, 54% LTV)
-    ├── 450-549: Fair (15% APY, 42% LTV)
-    └── <450: Poor (18% APY, 30% LTV or Denied)
+└─ Generate Signal
+   ├─ RSI < 30 on both? (Oversold)
+   ├─ MACD > 0 on both? (Bullish)
+   └─ Both confirmed = BUY SIGNAL
+
+Step 2: Risk Management
+├─ Check 5-minute cooldown
+├─ Calculate position size (max 10% of funds)
+├─ Adjust for volatility
+└─ Adjust for liquidity
+
+Step 3: Execution
+├─ Market order placed
+├─ Log transaction
+├─ Record price impact
+└─ Reset cooldown timer
 ```
 
-**Step 2: Auto-Decisioning** ⚖️
-```
-Instant decision based on 4 risk factors:
-├── Collateral Risk (30% weight)
-├── Credit Risk (35% weight)
-├── Liquidity Risk (20% weight)
-└── Behavioral Risk (15% weight)
+### Output
+- Algorithmic buybacks at oversold levels
+- Chart price support maintained
+- Reduced volatility
+- Real-time execution tracking
 
-Decision Options:
-├── APPROVED: Auto-approved with standard terms
-├── CONDITIONAL: Approved with special conditions
-├── PENDING: Requires manual review
-└── DENIED: Automatic rejection
+### Example
 ```
+Buyback Fund: $1,000
+Available: $1,000
 
-**Step 3: Collateral Deposit** 🔒
-```
-Once approved:
-├── Deposit Exen tokens to escrow
-├── Health factor calculated (must be > 1.0)
-├── Collateral locked until repayment
-└── Liquidation triggers at health < 1.0
-```
+Signal Generated:
+- RSI 1m: 28 ✓
+- RSI 5m: 32 ✓
+- MACD 1m: Positive ✓
+- MACD 5m: Positive ✓
 
-**Step 4: Loan Issuance** 💵
-```
-Funds disbursed automatically:
-├── USD stablecoin to wallet
-├── Interest rate set by credit score
-├── Repayment schedule created
-└── Health monitoring begins
+Position Size: 10% = $100
+Token Price: $0.10
+Tokens Purchased: 1,000 EXEN
+
+Remaining Fund: $900
 ```
 
-### How Decentralized Lending Works
+### Plus: Interest Revenue Boost
+- When lending pool generates interest
+- 50% of that interest added to buyback fund
+- More firepower for supporting chart
+- Same RSI/MACD triggered execution
 
-**Traditional Banking Problem:**
-- Banks decide who gets credit based on proprietary algorithms
-- Credit decisions lack transparency
-- Billions excluded from financial system
-- Central institutions capture all lending profits
+---
 
-**Exen Solution:**
-- On-chain wallet analysis replaces credit bureaus
-- Algorithmic, transparent credit decisions
-- No gatekeepers or intermediaries
-- All protocol participants share lending profits
-- Collateral is verifiable and liquidatable on-chain
+## 3️⃣ LENDING POOL INFRASTRUCTURE (50% of Fees)
 
-### Real-World Example
-
-**Scenario: Alice Wants to Borrow USD**
+### Phase 1: Pool Accumulation (Pre-Activation)
 
 ```
-Alice's Position:
-├── Owns 1,000,000 Exen tokens
-├── Current price: $0.10 per token
-├── Collateral value: $100,000
-├── Maximum borrow (60% LTV): $60,000
-└── Borrow limit: $60,000
+Minimum Threshold: $50,000 USD
+├─ 50% of all creator fees accumulated
+├─ Progress tracked publicly
+├─ Pool inactive until threshold reached
+└─ No lending available yet
 
-Pool Conditions:
-├── Interest rate: 14% APY
-├── Pool balance: $100,000
-├── Total borrowed: $70,000
-└── Utilization: 70%
-
-Alice's Action:
-├── Deposits 1,000,000 Exen as collateral
-├── Borrows $50,000 USD
-├── Pays 14% APY interest
-└── Can repay anytime
-
-What Happens Next:
-
-IF PRICE RISES to $0.12:
-├── Collateral now worth $120,000
-├── Alice still owes $50,000
-├── Surplus $20,000 stays with protocol
-└── Protocol redirects surplus: $10k → holders, $10k → buyback
-
-IF PRICE DROPS to $0.08:
-├── Collateral worth $80,000
-├── Alice still owes $50,000
-├── Health factor still healthy (1.6x)
-├── Protocol adjusts via buyback support
-└── System remains stable
+Timeline Example:
+Day 1:  $5,000 accumulated (10%)
+Day 2:  $12,000 accumulated (24%)
+Day 3:  $18,000 accumulated (36%)
+...
+Day X:  $50,000+ accumulated → ACTIVATED
 ```
 
-### Revenue Generation & Redistribution
+### Phase 2: Pool Activation & Operations
+
+#### 2.1 Borrower Wallet Analysis (NEW USER)
 
 ```
-Daily Interest Revenue Example:
+When user initiates lending:
 
-Pool Statistics:
-├── Total borrowed: $60,000
-├── Average rate: 14% APY
-├── Daily accrual: $60,000 × 14% ÷ 365 = $23.01
+Step 1: Automatic Wallet Scan
+├─ Connect Solana wallet
+├─ Fetch on-chain transaction history
+├─ Analyze last 30-90 days
 
-Revenue Split 50/50:
-├── $11.51 → Converted to SOL & distributed to holders
-│   └── Proportional to token holdings
-│   └── Added to 15-minute reward cycles
+Step 2: Credit Score Calculation
+Analyze 5 Credibility Factors (0-20 each):
+
+├─ Transaction Volume Score
+│  └─ Total inflow + outflow activity
 │
-└── $11.51 → Added to chart buyback support
-    └── Deployed algorithmically
-    └── Strengthens price floor
+├─ Payment Consistency Score
+│  └─ Regular patterns and frequency
+│
+├─ Inflow Reliability Score
+│  └─ Consistency of incoming funds
+│
+├─ Balance Stability Score
+│  └─ Health of current balance
+│
+└─ Transaction Success Rate Score
+   └─ Percentage of successful TXs
+
+Aggregate to 300-850 Credit Score:
+├─ 750+: EXCELLENT
+├─ 650-749: VERY GOOD
+├─ 550-649: GOOD
+├─ 450-549: FAIR
+└─ <450: POOR
 ```
 
-### Smart Liquidation Protection
+#### 2.2 Auto-Decisioning
 
 ```
+Risk Assessment (4 Factors):
+
+├─ Collateral Risk (30% weight)
+│  ├─ LTV ratio calculation
+│  ├─ Token volatility
+│  └─ Liquidation probability
+│
+├─ Credit Risk (35% weight)
+│  ├─ Credit score mapping
+│  ├─ Payment history
+│  └─ Default probability
+│
+├─ Liquidity Risk (20% weight)
+│  ├─ Cash flow analysis
+│  ├─ Balance adequacy
+│  └─ Repayment capacity
+│
+└─ Behavioral Risk (15% weight)
+   ├─ Transaction patterns
+   ├─ Account age
+   └─ Activity consistency
+
+Overall Risk Score (0-100):
+├─ 0-15: MINIMAL RISK → APPROVED
+├─ 15-30: LOW RISK → APPROVED
+├─ 30-50: MODERATE RISK → CONDITIONAL
+├─ 50-75: HIGH RISK → PENDING REVIEW
+└─ 75+: VERY HIGH RISK → DENIED
+```
+
+#### 2.3 Loan Terms Generation
+
+```
+Based on Risk Assessment:
+
+MINIMAL RISK (Score 750+)
+├─ Interest Rate: 8% APY
+├─ LTV Ratio: 60%
+├─ Max Borrow: Collateral × 60%
+└─ Health Factor Threshold: 1.0
+
+VERY GOOD (Score 650-749)
+├─ Interest Rate: 10% APY
+├─ LTV Ratio: 60%
+└─ Health Factor Threshold: 1.0
+
+GOOD (Score 550-649)
+├─ Interest Rate: 12% APY
+├─ LTV Ratio: 54%
+└─ Health Factor Threshold: 1.1
+
+FAIR (Score 450-549)
+├─ Interest Rate: 15% APY
+├─ LTV Ratio: 42%
+└─ Health Factor Threshold: 1.2
+
+POOR (Score <450)
+├─ Interest Rate: 18% APY
+├─ LTV Ratio: 30%
+└─ Decision: DENIED or CONDITIONAL
+```
+
+#### 2.4 Collateral Deposit
+
+```
+User Actions:
+1. Send Exen tokens to smart contract
+2. Collateral locked in escrow vault
+3. Collateral value calculated: Tokens × Current Price
+
+Protocol Actions:
+1. Lock tokens until repayment
+2. Calculate borrow limit: Collateral Value × LTV%
+3. Set liquidation threshold
+4. Begin health monitoring
+
+Escrow Management:
+├─ Vault Address: EXEN_ESCROW_001
+├─ Status: LOCKED
+├─ Release Condition: Full loan repayment
+└─ Liquidation Trigger: Health Factor < 1.0
+```
+
+#### 2.5 Loan Issuance
+
+```
+Prerequisites Met:
+✓ Wallet approved
+✓ Collateral deposited
+✓ Health factor healthy
+
+Execution:
+1. USD stablecoin issued to borrower
+2. TX hash recorded on-chain
+3. Interest rate activated
+4. Repayment clock starts
+
+Borrower Receives:
+├─ USD Amount: Approved loan amount
+├─ Account Created: Shows balance + terms
+├─ Interest Rate: Based on credit score
+├─ Repayment Date: 180 days default
+└─ Health Factor: Monitored 24/7
+```
+
+#### 2.6 Interest Accrual & Monitoring
+
+```
+Daily Operations:
+
+Interest Calculation:
+Daily Interest = Loan Amount × (APY / 365)
+
+Example (14% APY on $5,000):
+Daily = $5,000 × (14% / 365) = $1.92/day
+Monthly = $1.92 × 30 = $57.60
+
 Health Factor Monitoring:
+HF = Collateral Value / Loan Amount
 
-SAFE ZONE:
-├── Health Factor > 1.5: Comfortable position
-├── No liquidation risk
-└── Continue earning & borrowing
+If Exen drops:
+├─ $10,000 collateral → $8,000 value
+├─ $5,000 loan
+├─ HF = 8,000 / 5,000 = 1.6 (HEALTHY)
 
-WARNING ZONE:
-├── Health Factor 1.0-1.5: Monitor closely
-├── Consider repaying partial debt
-└── Adjust position to reduce risk
+If drops more:
+├─ $5,500 collateral value
+├─ $5,000 loan
+├─ HF = 1.1 (WARNING)
 
-LIQUIDATION TRIGGERED:
-├── Health Factor < 1.0
-├── Collateral sold automatically
-├── Debt repaid from sale proceeds
-├── Surplus redistributed 50/50
-└── User can recover remaining value
+If drops further:
+├─ $4,500 collateral value
+├─ $5,000 loan
+├─ HF = 0.9 (LIQUIDATION TRIGGERED)
+```
 
-Example Liquidation:
-├── Borrowed: $50,000
-├── Collateral liquidated for: $55,000
-├── Debt repaid: $50,000
-├── Surplus: $5,000
-│   ├── $2,500 → holder rewards
-│   └── $2,500 → chart buyback
-└── System remains profitable & healthy
+#### 2.7 Interest Revenue Distribution
+
+```
+Monthly Interest Collected: $57.60
+
+Split 50/50:
+
+50% to Holder Rewards ($28.80)
+├─ Convert USD to SOL
+├─ Add to reward pool
+├─ Distribute in next 15-min cycle
+└─ Goes to all token holders
+
+50% to Chart Buyback ($28.80)
+├─ Add to buyback fund
+├─ Available for RSI/MACD triggers
+├─ Deploy on oversold signals
+└─ Supports chart health
+```
+
+#### 2.8 Liquidation Mechanics
+
+```
+Trigger: Health Factor < 1.0
+
+Liquidation Process:
+1. Identify underwater position
+2. Sell collateral on market
+3. Repay loan from proceeds
+4. Calculate surplus/deficit
+
+If Surplus (Collateral > Loan):
+├─ Surplus Amount: Collateral - Loan
+├─ 50% → Holder Rewards
+├─ 50% → Chart Buyback
+└─ Example: $8,333 - $5,000 = $3,333 surplus
+
+If Deficit (Collateral < Loan):
+├─ Protocol covers loss
+├─ Taken from lending reserves
+├─ Triggers risk management protocols
+└─ Rare with 60% LTV constraint
+```
+
+#### 2.9 Repayment & Collateral Release
+
+```
+User Action:
+1. User repays USD + accrued interest
+2. Transaction processed on-chain
+
+Protocol Action:
+1. Verify full repayment
+2. Release collateral from escrow
+3. Update borrower record
+4. Return funds to pool
+
+Collateral Released:
+├─ User receives: Original Exen tokens + price appreciation
+├─ Example: Deposited 100,000 EXEN
+│   Price: $0.10 → $0.15
+│   Still receive: 100,000 EXEN
+│   But worth: $15,000 (instead of $10,000)
+└─ User keeps all price upside
 ```
 
 ---
 
-## 🔧 Technical Specifications
-
-- **Blockchain**: Solana (high-speed, low-cost settlement)
-- **Smart Contract Language**: Rust (Anchor framework)
-- **Analytics Engine**: Python (technical analysis library)
-- **Distribution Engine**: Automated via smart contract every 15 minutes
-- **Buyback Analysis**: Custom RSI/MACD algorithms with multi-timeframe confirmation
-- **Lending Engine**: Collateral-based lending with dynamic LTV calculation
-- **Price Feeds**: Pyth Network (real-time oracle integration)
-- **Timeframes Analyzed**: 1-minute and 5-minute candles
-- **Liquidation Trigger**: Health factor < 1.0
-- **Risk Management**: Position sizing (10% max per trade), stop losses, high volatility adjustments
-
----
-
-## 📈 Performance Tracking Dashboard
-
-Our protocol maintains real-time metrics on:
-
-### Holder Rewards Metrics
-- Total SOL distributed (lifetime & period)
-- Average reward per holder
-- Distribution efficiency score
-- Lending interest contribution to rewards
-
-### Chart Support Metrics
-- Buy signal accuracy rate
-- Price impact analysis
-- Support level success ratio
-- Buyback power deployed
-- Lending interest funding chart support
-
-### Lending Pool Metrics
-- Pool balance (USD available)
-- Total collateral locked (Exen)
-- Total borrowed (outstanding loans)
-- Utilization rate
-- Pool health ratio
-- Interest revenue generated
-- Default rate & liquidation events
-
-### Overall Protocol Health
-- Total fee generation
-- Community growth rate
-- Token stability index
-- Lending adoption percentage
-- Revenue reinvestment tracking
-- Ecosystem sustainability score
-
----
-
-## 🛡️ Security & Risk Management
-
-### Security Measures
-- ✅ **Regular Smart Contract Audits** by leading security firms
-- ✅ **Multi-signature Treasury** for protocol funds
-- ✅ **Transparent Fee Distribution** with on-chain verification
-- ✅ **Open Source Code** - all auditable by community
-- ✅ **Real-time Collateral Monitoring** with health factor tracking
-- ✅ **Oracle Integration** via Pyth Network for accurate pricing
-- ✅ **Liquidation Insurance** - protocol covers gap risk
-
-### Risk Management Controls
-- Conservative 60% LTV ratio (not 75% or higher)
-- Per-user borrow caps ($500k USD maximum)
-- Dynamic liquidation thresholds
-- Position sizing limits (10% max per buyback)
-- Multi-timeframe confirmation for buy signals
-- High volatility adjustment mechanisms
-- Low liquidity pause protocols
-
-### Known Risks
-⚠️ **Collateral Volatility**: Exen price fluctuations affect borrowing capacity  
-⚠️ **Smart Contract Risk**: All code subject to technical risk (mitigated by audits)  
-⚠️ **Market Risk**: Extreme market conditions may impact liquidation execution  
-⚠️ **Oracle Risk**: Price feed manipulation potential (mitigated by Pyth security)  
-⚠️ **Liquidation Cascades**: Rapid price movements could trigger multiple liquidations  
-
----
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Whether you're a developer, analyst, security researcher, or just passionate about decentralized finance, there's a place for you.
-
-### Development Setup
-```bash
-# Clone the repository
-git clone https://github.com/exen-protocol/exen-core.git
-cd exen-protocol
-
-# Install dependencies
-npm install
-
-# Run the full test suite
-npm run test
-
-# Start local development environment
-npm run dev
-
-# Build for production
-npm run build:prod
-```
-
-### Contribution Areas
-- Smart contract optimization
-- Technical analysis algorithm improvements
-- Lending pool risk modeling
-- UI/UX enhancements
-- Documentation & guides
-- Community translation
-- Security research
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
----
-
-## 📚 Documentation
-
-- **[Strategy Deep Dive](docs/STRATEGY.md)** - Complete technical strategy explanation including all three engines
-- **[Lending Pool Guide](docs/LENDING.md)** - Detailed borrowing, collateral, and liquidation mechanics
-- **[Smart Contract API](docs/API.md)** - Smart contract methods and integration guide
-- **[Analytics & Metrics](docs/METRICS.md)** - Dashboard, KPIs, and performance tracking
-- **[Risk Management](docs/RISK.md)** - Liquidation procedures, collateral modeling, stress tests
-- **[Developer Guide](docs/DEVELOPER.md)** - Building on top of Exen Protocol
-
----
-
-## 💬 Community & Support
-
-Join the Exen community and stay updated:
-
-- **Discord**: [Exen Protocol Community](https://discord.gg/exen-protocol)
-- **Twitter/X**: [@ExenProtocol](https://twitter.com/exen_protocol)
-- **Telegram**: [Exen Protocol Chat](https://t.me/exen_protocol)
-- **Website**: [exenprotocol.com](https://exenprotocol.com)
-- **Docs**: [docs.exenprotocol.com](https://docs.exenprotocol.com)
-- **GitHub**: [github.com/exen-protocol](https://github.com/exen-protocol)
-
-### Getting Help
-- **Technical Support**: GitHub Issues
-- **Feature Requests**: GitHub Discussions
-- **Community Questions**: Discord #help channel
-- **Security Issues**: security@exenprotocol.com (please report privately)
-
----
-
-## 📊 Protocol Statistics
+## 4️⃣ COMPLETE DAILY FLOW EXAMPLE
 
 ```
-Current State:
-├── Total Fees Generated: $XXX,XXX
-├── Total SOL Distributed: XXX SOL
-├── Active Holders: X,XXX+
-├── Lending Pool Progress: XX% toward $50k activation
-├── Average APY Offered: 12-18%
-└── Community Members: X,XXX+
+Day 1 Operations:
+
+08:00 AM - CREATOR FEES ARRIVE
+├─ $1,000 in fees collected
+└─ Fee splitter processes
+
+08:01 AM - FEE ALLOCATION
+├─ $250 → Reward Engine (25%)
+├─ $250 → Buyback Engine (25%)
+└─ $500 → Lending Pool (50%)
+
+08:15 AM - FIRST REWARD CYCLE
+├─ Calculate proportions
+├─ Holder 1 (50%): 125 SOL
+├─ Holder 2 (25%): 62.5 SOL
+├─ Holder 3 (15%): 37.5 SOL
+└─ Holder 4 (10%): 25 SOL
+    Total Distributed: 250 SOL
+
+08:20 AM - BUYBACK ANALYSIS
+├─ RSI 1m: 28 (Oversold)
+├─ RSI 5m: 32 (Oversold)
+├─ MACD 1m: Positive (Bullish)
+├─ MACD 5m: Positive (Bullish)
+└─ SIGNAL GENERATED
+
+08:21 AM - BUYBACK EXECUTION
+├─ Position Size: $25 (10% of $250)
+├─ Market Buy: 250 EXEN @ $0.10
+└─ Fund Remaining: $225
+
+11:30 AM - NEW BORROWER INITIATES LENDING
+├─ Wallet scanned automatically
+├─ Credit score generated: 680 (VERY GOOD)
+├─ Auto-decision: APPROVED
+├─ Interest rate set: 10% APY
+├─ LTV ratio set: 60%
+└─ Borrower can proceed
+
+11:45 AM - BORROWER DEPOSITS COLLATERAL
+├─ Deposits: 50,000 EXEN
+├─ Collateral value: $5,000 (@ $0.10)
+├─ Max borrow: $3,000 (60% LTV)
+├─ Borrow amount requested: $2,000
+└─ Collateral locked in escrow
+
+11:46 AM - FUNDS DISBURSED
+├─ $2,000 USD sent to borrower
+├─ Interest rate activated: 10% APY
+├─ Repayment due: 180 days
+└─ Health monitoring begins
+
+12:00 PM - LENDING POOL INTEREST ACCRUED
+├─ Daily interest: $0.55 ($2,000 × 10% / 365)
+├─ Distributed (50/50):
+│   ├─ $0.275 → Next reward cycle
+│   └─ $0.275 → Buyback fund
+└─ Cycle continues...
+
+15:00 PM - SECOND REWARD CYCLE (15-min)
+├─ Reward pool: $250 + $0.275 (interest)
+├─ Total: $250.275
+├─ Distributed proportionally to all holders
+└─ Cycle 2 complete
+
+DAILY SUMMARY:
+├─ Total fees processed: $1,000
+├─ Total rewards distributed: $250+
+├─ Total buybacks executed: 250 EXEN
+├─ Loan issued: $2,000
+├─ Interest generated: $0.55
+├─ Lending pool balance: $499.50 (+ $0.50 accrued)
+└─ Status: Normal operations
 ```
 
 ---
 
-## 📄 License
+## 5️⃣ REVENUE FLOW ECOSYSTEM
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
+CREATOR FEES
+    ↓
+    ├─ 25% Holder Rewards ($250)
+    │       ├─ 15-min distribution
+    │       ├─ All holders included
+    │       └─ Proportional allocation
+    │
+    ├─ 25% Chart Buyback ($250)
+    │       ├─ Technical analysis
+    │       ├─ Risk-managed execution
+    │       └─ Price support
+    │
+    └─ 50% Lending Pool ($500)
+            ├─ Pool growth
+            ├─ Interest generation: $X/month
+            │   ├─ 50% → Rewards ($X/2)
+            │   └─ 50% → Buyback ($X/2)
+            │
+            └─ Liquidation surplus: $Y
+                ├─ 50% → Rewards ($Y/2)
+                └─ 50% → Buyback ($Y/2)
+
+TOTAL MONTHLY ALLOCATION:
+├─ Base Holder Rewards: $250 × 30 = $7,500
+├─ + Interest allocation: ~$500 + lending interest
+├─ Base Buyback Support: $250 × 30 = $7,500
+├─ + Interest allocation: ~$500 + lending interest
+└─ Lending Pool: $500 × 30 = $15,000
+    ├─ Growing pool
+    ├─ Generating interest
+    └─ Creating surplus from liquidations
+```
 
 ---
 
-## ⚖️ Legal Disclaimer
+## 6️⃣ STATE TRANSITIONS & DECISION TREES
 
-**Important**: The Exen Protocol involves financial risk. 
+### Holder Flow
+```
+User acquires tokens
+    ↓
+Automatic eligibility in reward program
+    ↓
+15-minute cycles (no action needed)
+    ↓
+Receive SOL proportional to holdings
+    ↓
+Compound effect: Use rewards to buy more tokens
+    ↓
+Higher holdings = Higher future rewards
+```
 
-The Exen Protocol is provided "as-is" without warranties. By using this protocol, you acknowledge:
+### Borrower Flow
+```
+User wants to borrow USD
+    ↓
+Connect wallet (auto-analysis triggered)
+    ↓
+Credit score generated
+    ↓
+Decision tree:
+├─ APPROVED → Proceed to deposit
+├─ CONDITIONAL → Meet conditions, proceed
+├─ PENDING → Wait for manual review
+└─ DENIED → Cannot proceed
+    ↓
+Deposit collateral
+    ↓
+Health verified (HF > 1.0)
+    ↓
+USD disbursed
+    ↓
+Interest accrues daily
+    ↓
+Repay anytime (full or partial)
+    ↓
+Release collateral + keep upside
+```
 
-- ⚠️ **Risk of Loss**: Your capital is at risk, including from collateral price volatility
-- ⚠️ **Smart Contract Risk**: Code may contain undiscovered vulnerabilities
-- ⚠️ **Market Risk**: Crypto markets are highly volatile and unpredictable
-- ⚠️ **Liquidation Risk**: Your collateral may be liquidated if conditions deteriorate
-- ⚠️ **Regulatory Risk**: Laws governing crypto finance are evolving globally
-
-**Only invest capital you can afford to lose completely.** Conduct thorough research and consult financial advisors if needed.
+### Liquidation Flow
+```
+Borrower has active loan
+    ↓
+Token price declines
+    ↓
+Health factor decreases
+    ↓
+HF < 1.0 threshold?
+├─ NO → Continue monitoring
+└─ YES → LIQUIDATION TRIGGERED
+        ↓
+        Sell collateral
+        ↓
+        Repay loan from proceeds
+        ↓
+        Surplus calculation:
+        ├─ Sale Proceeds > Loan = SURPLUS
+        │   ├─ 50% → Holder Rewards
+        │   └─ 50% → Chart Buyback
+        │
+        └─ Sale Proceeds < Loan = DEFICIT
+            └─ Protocol covers loss
+```
 
 ---
 
-## 🚀 Join the Future of Finance
+## 7️⃣ DATA FLOW & CALCULATIONS
 
-Exen Protocol is building the infrastructure for the next generation of permissionless, transparent, algorithmically-managed finance. 
+### Every 15 Minutes (Reward Distribution)
 
-**Where traditional finance asks "Are you creditworthy?" Exen Protocol asks "What can you collateralize?"**
+```
+Input:
+├─ Creator fees accumulated
+├─ Interest collected from lending
+└─ Liquidation surplus
 
-Join us in building a financial system where access to capital isn't determined by institutions—it's determined by on-chain reputation, transparent collateral, and community participation.
+Calculation:
+├─ Total reward pool = Fees + (Interest × 0.5) + (Liquidation × 0.5)
+├─ For each holder:
+│   └─ Reward = (Holder Balance / Total Supply) × Reward Pool
+└─ Round to 6 decimals (SOL standard)
 
-**The future of banking is decentralized. The future is Exen.**
+Output:
+├─ SOL transfer to each holder
+├─ Event logged on-chain
+└─ Analytics updated
+```
+
+### When Buy Signal Detected (Chart Support)
+
+```
+Input:
+├─ Price data (1m and 5m)
+├─ RSI calculations
+├─ MACD calculations
+└─ Buyback fund balance
+
+Decision:
+├─ RSI < 30 on both? YES
+├─ MACD > 0 on both? YES
+├─ In cooldown? NO
+└─ Volatility high? NO → Execute standard size
+
+Calculation:
+├─ Position size = Fund × 10% × Signal strength
+├─ Adjusted for volatility
+└─ Capped at max trade limit
+
+Execution:
+├─ Market order placed
+├─ Slippage tracked
+├─ Price impact calculated
+└─ Transaction logged
+
+Output:
+├─ Tokens purchased
+├─ Fund reduced
+└─ Cooldown timer set (5 minutes)
+```
+
+### When Loan is Issued
+
+```
+Input:
+├─ Borrower wallet analysis
+├─ Credit score (300-850)
+├─ Collateral amount
+├─ Requested borrow amount
+└─ Current token price
+
+Calculation:
+├─ Credit rating determined
+├─ Interest rate set (based on score)
+├─ LTV ratio set (based on risk)
+├─ Max borrow = Collateral × Price × LTV%
+└─ Actual loan = min(Requested, Max borrow, Pool available)
+
+Conditions:
+├─ Health factor = Collateral Value / Loan Amount
+├─ Must be ≥ 1.0
+└─ Liquidation threshold varies by rating
+
+Output:
+├─ Loan approved/denied
+├─ Terms generated
+├─ Collateral locked
+└─ USD issued
+```
+
+### When Interest Accrues (Daily)
+
+```
+Input:
+├─ Loan amount
+├─ Interest rate (APY)
+├─ Days outstanding
+
+Calculation:
+├─ Daily interest = Loan × (Rate / 365)
+├─ Accumulated interest = Daily × Days
+├─ 50% allocation = Total / 2
+
+Output:
+├─ Holder reward portion
+├─ Buyback support portion
+├─ Health factor recalculated (daily)
+└─ Liquidation check performed (daily)
+```
 
 ---
 
-<div align="center">
+## 8️⃣ SECURITY & MONITORING
 
-**Built by the community. For the community. Forever permissionless.**
-</div>
+### Continuous Monitoring (24/7)
+
+```
+Reward Engine:
+├─ Verify fee collection
+├─ Confirm distributions sent
+└─ Check holder eligibility
+
+Buyback Engine:
+├─ Monitor signal accuracy
+├─ Track execution quality
+├─ Verify price impact
+└─ Ensure no flash crashes
+
+Lending Pool:
+├─ Monitor all health factors
+├─ Track collateral values (price feeds)
+├─ Prepare liquidations
+├─ Monitor interest accrual
+├─ Verify reserve adequacy
+└─ Track utilization rates
+```
+
+### Risk Management Thresholds
+
+```
+Reward Distribution:
+├─ Minimum: All eligible holders paid
+├─ Maximum: No single holder gets >50%
+└─ Frequency: Exactly every 15 minutes
+
+Buyback Execution:
+├─ Max position: 10% of available funds
+├─ Minimum cooldown: 5 minutes
+├─ Stop loss: RSI > 70
+└─ Volatility reduction: 50% size cut if high vol
+
+Lending Pool:
+├─ Minimum pool: $50k to activate
+├─ Maximum LTV: 60% (adjusted down by risk)
+├─ Minimum health: 1.0 (liquidation at <1.0)
+├─ Maximum interest: 18% APY
+├─ Minimum interest: 5% APY
+└─ Per-user cap: $500k USD max loan
+```
+
+---
+
+## ✅ COMPLETE SYSTEM SUMMARY
+
+| Component | Input | Process | Output | Frequency |
+|-----------|-------|---------|--------|-----------|
+| **Reward Engine** | Creator fees (25%) | Calculate proportions | SOL to holders | Every 15 min |
+| **Buyback Engine** | Creator fees (25%) | RSI/MACD analysis | Buy orders | On signal |
+| **Lending Pool** | Creator fees (50%) | Collateral mgmt | USD loans | On approval |
+| **Interest Revenue** | Loan interest | 50/50 split | Rewards + Buyback | Daily accrual |
+| **Liquidation** | Underwater positions | Collateral sale | Surplus distribution | On trigger |
+| **Credit Scoring** | Wallet analysis | 5-factor assessment | Credit score | On application |
+| **Auto-Decisioning** | Credit score + risk | 4-factor risk model | Approve/Deny | On application |
+
+---
+
+## 🎯 Key Metrics to Track
+
+```
+Real-Time Dashboards:
+├─ Reward Distribution
+│   ├─ SOL per holder (15-min)
+│   ├─ Total distributed (lifetime)
+│   └─ Efficiency rate (%)
+│
+├─ Chart Support
+│   ├─ Buys executed
+│   ├─ Average buy price
+│   ├─ Total tokens accumulated
+│   └─ Price support effectiveness
+│
+├─ Lending Pool
+│   ├─ Pool balance
+│   ├─ Total borrowed
+│   ├─ Active loans
+│   ├─ Interest revenue (daily/monthly)
+│   ├─ Utilization rate (%)
+│   ├─ Average interest rate
+│   └─ Liquidation rate (%)
+│
+└─ Overall Protocol
+    ├─ Total fees processed
+    ├─ Total value distributed
+    ├─ Community growth
+    ├─ Loan default rate
+    └─ System uptime (%)
+```
+
+---
+
+This is the complete end-to-end mapping of how Exen Protocol flows from fee collection through all three engines, with wallet analysis and credit scoring integrated into the lending pipeline.
