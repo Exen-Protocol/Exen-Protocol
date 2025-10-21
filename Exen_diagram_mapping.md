@@ -966,8 +966,6 @@ Join us in building a financial system where access to capital isn't determined 
 
 ---
 
-*Last updated: January 2025*
-
 <div align="center">
 
 **Built by the community. For the community. Forever permissionless.**
